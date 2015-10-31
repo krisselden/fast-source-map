@@ -1,0 +1,26 @@
+{
+  "name": "fast-source-map",
+  "version": "0.0.1",
+  "description": "fast source mapping decode/encode",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "rollup": "^0.15.0",
+    "qunitjs": "^1.19.0"
+  },
+  "devDependencies": {
+    "do-you-even-bench": "^1.0.2",
+    "qunitjs": "^1.19.0",
+    "rollup": "^0.15.0",
+    "sane": "^1.2.0",
+    "source-map": "^0.5.0"
+  },
+  "scripts": {
+    "test": "node test.js",
+    "build": "rollup -f umd -n VLQ -o index.js lib/index.js"
+  },
+  "author": "Kris Selden",
+  "license": "MIT"
+}
