@@ -3,12 +3,9 @@
   "version": "0.0.1",
   "description": "fast source mapping decode/encode",
   "main": "index.js",
+  "jsnext:main": "lib/index.js",
   "directories": {
     "test": "test"
-  },
-  "dependencies": {
-    "rollup": "^0.15.0",
-    "qunitjs": "^1.19.0"
   },
   "devDependencies": {
     "do-you-even-bench": "^1.0.2",
@@ -19,7 +16,8 @@
   },
   "scripts": {
     "test": "node test.js",
-    "build": "rollup -f umd -n VLQ -o index.js lib/index.js"
+    "build": "rollup -f umd -n VLQ -o index.js lib/index.js",
+    "prepublish": "npm run build"
   },
   "author": "Kris Selden",
   "license": "MIT"

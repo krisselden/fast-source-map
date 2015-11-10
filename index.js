@@ -21,11 +21,10 @@
   // 1 is the sign bit
   function encodeVLQ(dest, v) {
     var num = v < 0 ? (-v << 1)|1 : v << 1;
-    var cont;
     do {
       var digit = num & 31;
       num >>= 5;
-      cont = num > 0;
+      var cont = num > 0;
       if (cont) {
         digit |= 32;
       }
@@ -80,10 +79,6 @@
       this.writeAt(this.ptr|0, n|0);
       this.ptr = (this.ptr + 1)|0;
       this.written = (this.written + 1)|0;
-    },
-
-    writeAt: function writeAt(ptr, n) {
-      this.buf[ptr|0] = n|0;
     }
   }
 
