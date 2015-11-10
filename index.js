@@ -21,10 +21,11 @@
   // 1 is the sign bit
   function encodeVLQ(dest, v) {
     var num = v < 0 ? (-v << 1)|1 : v << 1;
+    var cont;
     do {
       var digit = num & 31;
       num >>= 5;
-      var cont = num > 0;
+      cont = num > 0;
       if (cont) {
         digit |= 32;
       }
