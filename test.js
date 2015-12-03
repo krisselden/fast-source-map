@@ -7,7 +7,7 @@ QUnit.testDone(function (details) {
   console.log((details.failed ? 'not ok ' : 'ok ') + (num++) + ' - ' + details.module + ' - ' + details.name);
 });
 
-global.VLQ = require('.');
+global.VLQ = require('./index');
 require('./test/index.js');
 
 QUnit.load();
