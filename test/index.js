@@ -54,59 +54,12 @@ QUnit.test('decodeVLQ', function (assert) {
   assert.equal(output.ptr, 8);
 });
 
-function Decoder() {
-  this.currentLine = {
-    mappings: []
-  };
-
-  this.mappings = {
-    lines: [this.currentLine]
-  };
-}
-
-Decoder.prototype = {
-    newline: function () {
-      this.currentLine = { mappings: [] };
-      this.mappings.lines.push(this.currentLine);
-    },
-
-    mapping1: function (col) {
-      this.currentLine.mappings.push({
-        col: col,
-        src: undefined,
-        srcLine: undefined,
-        srcCol: undefined,
-        name: undefined
-      });
-    },
-
-    mapping4: function (col, src, srcLine, srcCol) {
-      this.currentLine.mappings.push({
-        col: col,
-        src: src,
-        srcLine: srcLine,
-        srcCol: srcCol,
-        name: undefined
-      });
-    },
-
-    mapping5: function (col, src, srcLine, srcCol, name) {
-      this.currentLine.mappings.push({
-        col: col,
-        src: src,
-        srcLine: srcLine,
-        srcCol: srcCol,
-        name: name
-      });
-    }
-};
-
 QUnit.test('mappings decoder', function (assert) {
   var buffer = toBuffer('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
 
   var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
 
-  var decoder = new Decoder();
+  var decoder = new VLQ.Decoder();
   var mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
 
   assert.deepEqual(decoder.mappings, {
@@ -136,7 +89,7 @@ QUnit.test('mappings decoder', function (assert) {
 QUnit.test('mappings decoder (another)', function (assert) {
   var buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
 
-  var decoder = new Decoder();
+  var decoder = new VLQ.Decoder();
   var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
 
   new VLQ.MappingsDecoder(decoder).decode(reader);
