@@ -14,3 +14,4 @@ install:
   - npm --version
   - git --version
   - npm install
+  - npm run build
