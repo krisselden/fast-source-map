@@ -48,48 +48,14 @@ Setup the reader and decoder
 ```js
 // setup the reader
 var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
-
-// setup some state
-
-var mappings = { lines: [], };
-
-var currentLine = { mappings: [] };
-
-// setup the decoder
-var decoder = new VLQ.MappingsDecorder({
-  newline: function () {
-  currentLine = { mappings: [] };
-    mappings.lines.push(currentLine);
-  },
-  mapping1: function (col) {
-    currentLine.mappings.push({ col: col });
-  },
-  mapping4: function (col, src, srcLine, srcCol) {
-    currentLine.mappings.push({
-    col: col,
-    src: src,
-    srcLine: srcLine,
-    srcCol: srcCol
-    });
-  },
-
-  mapping5: function (col, src, srcLine, srcCol, name) {
-    currentLine.mappings.push({
-      col: col,
-      src: src,
-      srcLine: srcLine,
-      srcCol: srcCol,
-      name: name
-    });
-  }
-});
+var decoder = new VLQ.Decoder();
+var mappingsDecoder = new VLQ.MappingsDecoder(decoder);
 ```
 
 Now for some actual decoding
 
-```
-decoder.decode(reader);
-
-mappings.lines // => is the quickly decoded
+```js
+mappingsDecoder.decode(reader);
+decoder.lines // => is the quickly decoded
 ```
 
