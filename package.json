@@ -12,18 +12,25 @@
     "qunitjs": "^1.19.0",
     "rollup": "^0.15.0",
     "sane": "^1.2.0",
-    "source-map": "^0.5.0"
+    "source-map": "^0.5.0",
+    "string2buffer": "^1.0.0"
   },
   "scripts": {
     "test": "node test.js",
     "build": "rollup -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
-  "keywords": ["source-map", "sourcemap", "decode", "encode", "vlq"],
+  "keywords": [
+    "source-map",
+    "sourcemap",
+    "decode",
+    "encode",
+    "vlq"
+  ],
   "author": "Kris Selden <kris.selden@gmail.com>",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/krisselden/fast-source-map.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krisselden/fast-source-map.git"
   }
 }

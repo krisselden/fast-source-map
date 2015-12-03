@@ -105,3 +105,46 @@ QUnit.test('mappings decoder', function (assert) {
     }]
   });
 });
+
+QUnit.test('mappings decoder (another)', function (assert) {
+  var buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
+
+  var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+
+  var currentLine = {
+    mappings: []
+  };
+  var mappings = { lines: [currentLine] };
+
+  var decoder = new VLQ.MappingsDecoder({
+    newline: function () {
+      currentLine = { mappings: [] };
+      mappings.lines.push(currentLine);
+    },
+    mapping1: function (col) {
+      currentLine.mappings.push({ col: col });
+    },
+    mapping4: function (col, src, srcLine, srcCol) {
+      currentLine.mappings.push({ col: col, src: src, srcLine: srcLine, srcCol: srcCol });
+    },
+    mapping5: function (col, src, srcLine, srcCol, name) {
+      currentLine.mappings.push({ col: col, src: src, srcLine: srcLine, srcCol: srcCol, name: name });
+    }
+  });
+
+  decoder.decode(reader);
+
+  assert.equal(mappings.lines.length, 25, 'mappings.lines.length');
+  assert.equal(mappings.lines[0].mappings.length, 1);
+  assert.deepEqual(mappings.lines[0].mappings[0], { srcLine: 0, srcCol: 12, src: 0, col: 12 }, 'YAAY');
+
+  assert.equal(mappings.lines[1].mappings.length, 0);
+  assert.equal(mappings.lines[2].mappings.length, 8);
+
+  assert.deepEqual(mappings.lines[2].mappings[0], { srcLine: 0, srcCol: -9, src: 0, col:  0 }, 'AAArB');
+  assert.deepEqual(mappings.lines[2].mappings[1], { srcLine: 0, srcCol:  0, src: 0, col: 11 }, 'WAAS');
+  assert.deepEqual(mappings.lines[2].mappings[2], { srcLine: 0, srcCol: 12, src: 0, col: 23 }, 'YAAY');
+  assert.deepEqual(mappings.lines[2].mappings[3], { srcLine: 0, srcCol: 13, src: 0, col: 24 }, 'CAAC');
+  assert.deepEqual(mappings.lines[2].mappings[4], { srcLine: 0, srcCol: 17, src: 0, col: 28 }, 'IAAI');
+  assert.deepEqual(mappings.lines[2].mappings[5], { srcLine: 0, srcCol: 19, src: 0, col: 30 }, 'EAAE');
+});
