@@ -20,11 +20,17 @@
     "build": "rollup -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
-  "keywords": ["source-map", "sourcemap", "decode", "encode", "vlq"],
+  "keywords": [
+    "source-map",
+    "sourcemap",
+    "decode",
+    "encode",
+    "vlq"
+  ],
   "author": "Kris Selden <kris.selden@gmail.com>",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/krisselden/fast-source-map.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krisselden/fast-source-map.git"
   }
 }
