@@ -74,13 +74,14 @@
     this.ptr     = ptr|0;
     this.written = 0;
   }
+
   IntBufferWriter.prototype = {
     write: function write(n) {
       this.writeAt(this.ptr|0, n|0);
       this.ptr = (this.ptr + 1)|0;
       this.written = (this.written + 1)|0;
     }
-  }
+  };
 
   function MappingsDecoder(delegate) {
     this.delegate = delegate;
@@ -123,9 +124,11 @@
         this.emitMapping();
       }
     },
+
     emitNewline: function () {
       this.delegate.newline();
     },
+
     emitMapping: function () {
       switch (this.fieldCount) {
         case 1:
@@ -139,6 +142,7 @@
           break;
       }
     },
+
     decodeField: function decodeField(reader) {
       var value = decodeVLQ(reader)|0;
       switch (this.fieldCount) {
@@ -164,7 +168,7 @@
           break;
       }
     }
-  }
+  };
 
   exports.encodeVLQ = encodeVLQ;
   exports.decodeVLQ = decodeVLQ;
