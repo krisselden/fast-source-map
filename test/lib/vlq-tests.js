@@ -1,4 +1,8 @@
-import * as VLQ from '../../lib/index';
+import IntBufferReader from '../../lib/int-buffer-reader';
+import IntBufferWriter from '../../lib/int-buffer-writer';
+import { encodeVLQ, decodeVLQ } from '../../lib/vlq';
+import Decoder from '../../lib/decoder';
+import MappingsDecoder from '../../lib/mappings-decoder';
 import toBuffer from '../../lib/utils/to-buffer';
 import toString from '../../lib/utils/to-string';
 
@@ -8,19 +12,19 @@ describe('test encode', function() {
   it('encodeVLQ', function() {
     let pos = 0;
     let buffer = [ 123, 456, 789, 987, 654, 321 ];
-    let input = new VLQ.IntBufferReader(buffer, 0, buffer.length);
-    let output = new VLQ.IntBufferWriter([], 0);
+    let input = new IntBufferReader(buffer, 0, buffer.length);
+    let output = new IntBufferWriter([], 0);
 
     [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
-      VLQ.encodeVLQ(output, n);
+      encodeVLQ(output, n);
     });
 
     expect(toString(output.buf, 0, output.ptr)).to.equal('2HwcqxB29B8oBiU');
 
-    output = new VLQ.IntBufferWriter(new Int32Array(10), 0);
+    output = new IntBufferWriter(new Int32Array(10), 0);
 
     [ -1, 2, 1, 7, -1, 2, 6, 2 ].forEach(function (n) {
-      VLQ.encodeVLQ(output, n);
+      encodeVLQ(output, n);
     });
     expect(toString(output.buf, 0, output.ptr)).to.equal('DECODEME');
   });
@@ -35,7 +39,7 @@ describe('test encode', function() {
       ptr: 0,
     };
     while (input.ptr < input.buf.length) {
-      output.buf[output.ptr++] = VLQ.decodeVLQ(input);
+      output.buf[output.ptr++] = decodeVLQ(input);
     }
     expect(output.buf).to.deep.equal(new Int32Array([ -1, 2, 1, 7, -1, 2, 6, 2, 0, 0 ]));
     expect(output.ptr).to.equal(8);
@@ -44,10 +48,10 @@ describe('test encode', function() {
   it('mappings decoder', function() {
     let buffer = toBuffer('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
 
-    let reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+    let reader = new IntBufferReader(buffer, 0, buffer.length);
 
-    let decoder = new VLQ.Decoder();
-    let mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
+    let decoder = new Decoder();
+    let mappingsDecoder = new MappingsDecoder(decoder).decode(reader);
 
     expect(decoder.mappings).to.deep.equal({
       lines: [ {
@@ -78,10 +82,10 @@ describe('test encode', function() {
   it('mappings decoder (another)', function() {
     let buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
 
-    let decoder = new VLQ.Decoder();
-    let reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+    let decoder = new Decoder();
+    let reader = new IntBufferReader(buffer, 0, buffer.length);
 
-    new VLQ.MappingsDecoder(decoder).decode(reader);
+    new MappingsDecoder(decoder).decode(reader);
 
     let mappings = decoder.mappings;
 
