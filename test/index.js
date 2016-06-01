@@ -20,11 +20,11 @@ function toBuffer(str) {
 QUnit.test('encodeVLQ', function (assert) {
   var output = [];
   var pos = 0;
-  var buffer = [123,456,789,987,654,321];
+  var buffer = [ 123,456,789,987,654,321 ];
   var input = new VLQ.IntBufferReader(buffer, 0, buffer.length);
   var output = new VLQ.IntBufferWriter([], 0);
 
-  [123,456,789,987,654,321].forEach(function (n) {
+  [ 123,456,789,987,654,321 ].forEach(function (n) {
     VLQ.encodeVLQ(output, n);
   });
 
@@ -32,7 +32,7 @@ QUnit.test('encodeVLQ', function (assert) {
 
   output = new VLQ.IntBufferWriter(new Int32Array(10), 0);
 
-  [-1,2,1,7,-1,2,6,2].forEach(function (n) {
+  [ -1,2,1,7,-1,2,6,2 ].forEach(function (n) {
     VLQ.encodeVLQ(output, n);
   });
   assert.deepEqual(toString(output.buf, 0, output.ptr), 'DECODEME');
@@ -41,16 +41,16 @@ QUnit.test('encodeVLQ', function (assert) {
 QUnit.test('decodeVLQ', function (assert) {
   var output = {
     buf: new Int32Array(10),
-    ptr: 0
+    ptr: 0,
   };
   var input = {
     buf: toBuffer('DECODEME'),
-    ptr: 0
+    ptr: 0,
   };
   while (input.ptr < input.buf.length) {
     output.buf[output.ptr++] = VLQ.decodeVLQ(input);
   }
-  assert.deepEqual(output.buf, new Int32Array([-1,2,1,7,-1,2,6,2, 0,0]));
+  assert.deepEqual(output.buf, new Int32Array([ -1,2,1,7,-1,2,6,2, 0,0 ]));
   assert.equal(output.ptr, 8);
 });
 
@@ -63,8 +63,8 @@ QUnit.test('mappings decoder', function (assert) {
   var mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
 
   assert.deepEqual(decoder.mappings, {
-    lines: [{
-      mappings: [{ col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
+    lines: [ {
+      mappings: [ { col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
                  { col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
                  { col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
                  { col: 197, src: 0, srcLine: 7,  srcCol: 29, name: 2 },
@@ -81,8 +81,8 @@ QUnit.test('mappings decoder', function (assert) {
                  { col: 242, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
                  { col: 247, src: 0, srcLine: 10, srcCol: 9,  name: undefined },
                  { col: 261, src: 0, srcLine: 10, srcCol: 0,  name: undefined },
-                 { col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined }]
-    }]
+                 { col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined } ],
+    } ],
   });
 });
 
