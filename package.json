@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "do-you-even-bench": "^1.0.2",
+    "eslint": "^2.11.1",
     "qunitjs": "^1.19.0",
     "rollup": "^0.25.0",
     "rollup-plugin-babel": "^1.0.0",
