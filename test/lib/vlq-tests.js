@@ -2,15 +2,14 @@ import * as VLQ from '../../lib/index';
 import toBuffer from '../../lib/utils/to-buffer';
 import toString from '../../lib/utils/to-string';
 
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
 describe('test encode', function() {
   it('encodeVLQ', function() {
-    var output = [];
-    var pos = 0;
-    var buffer = [ 123, 456, 789, 987, 654, 321 ];
-    var input = new VLQ.IntBufferReader(buffer, 0, buffer.length);
-    var output = new VLQ.IntBufferWriter([], 0);
+    let pos = 0;
+    let buffer = [ 123, 456, 789, 987, 654, 321 ];
+    let input = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+    let output = new VLQ.IntBufferWriter([], 0);
 
     [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
       VLQ.encodeVLQ(output, n);
@@ -27,11 +26,11 @@ describe('test encode', function() {
   });
 
   it('decodeVLQ', function() {
-    var output = {
+    let output = {
       buf: new Int32Array(10),
       ptr: 0,
     };
-    var input = {
+    let input = {
       buf: toBuffer('DECODEME'),
       ptr: 0,
     };
@@ -43,12 +42,12 @@ describe('test encode', function() {
   });
 
   it('mappings decoder', function() {
-    var buffer = toBuffer('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
+    let buffer = toBuffer('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
 
-    var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+    let reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
 
-    var decoder = new VLQ.Decoder();
-    var mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
+    let decoder = new VLQ.Decoder();
+    let mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
 
     expect(decoder.mappings).to.deep.equal({
       lines: [ {
@@ -77,14 +76,14 @@ describe('test encode', function() {
   });
 
   it('mappings decoder (another)', function() {
-    var buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
+    let buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
 
-    var decoder = new VLQ.Decoder();
-    var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+    let decoder = new VLQ.Decoder();
+    let reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
 
     new VLQ.MappingsDecoder(decoder).decode(reader);
 
-    var mappings = decoder.mappings;
+    let mappings = decoder.mappings;
 
     expect(mappings.lines.length, 'mappings.lines.length').to.equal(25);
     expect(mappings.lines[0].mappings.length).to.equal(1);
