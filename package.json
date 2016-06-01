@@ -14,13 +14,14 @@
     "mocha": "^2.5.3",
     "rollup": "^0.25.0",
     "rollup-plugin-babel": "^1.0.0",
+    "rollup-plugin-multi-entry": "^1.1.0",
     "sane": "^1.2.0",
     "source-map": "^0.5.0",
     "string2buffer": "^1.0.0"
   },
   "scripts": {
     "lint": "eslint lib test/lib",
-    "test": "mocha --recursive",
+    "test": "./test/bin/build-and-run-tests",
     "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
