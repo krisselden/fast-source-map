@@ -20,7 +20,7 @@
   },
   "scripts": {
     "lint": "eslint lib test/lib",
-    "test": "mocha",
+    "test": "mocha --recursive",
     "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },

@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var VLQ = require('../index');
+var VLQ = require('../../index');
 
 var toBuffer = require('string2buffer');
 var toString = toBuffer.bufferToString;
