@@ -18,6 +18,7 @@
     "string2buffer": "^1.0.0"
   },
   "scripts": {
+    "lint": "eslint lib test/lib",
     "test": "node test.js",
     "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
