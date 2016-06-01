@@ -9,11 +9,11 @@ describe('test encode', function() {
   it('encodeVLQ', function() {
     var output = [];
     var pos = 0;
-    var buffer = [ 123,456,789,987,654,321 ];
+    var buffer = [ 123, 456, 789, 987, 654, 321 ];
     var input = new VLQ.IntBufferReader(buffer, 0, buffer.length);
     var output = new VLQ.IntBufferWriter([], 0);
 
-    [ 123,456,789,987,654,321 ].forEach(function (n) {
+    [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
       VLQ.encodeVLQ(output, n);
     });
 
@@ -21,7 +21,7 @@ describe('test encode', function() {
 
     output = new VLQ.IntBufferWriter(new Int32Array(10), 0);
 
-    [ -1,2,1,7,-1,2,6,2 ].forEach(function (n) {
+    [ -1, 2, 1, 7, -1, 2, 6, 2 ].forEach(function (n) {
       VLQ.encodeVLQ(output, n);
     });
     expect(toString(output.buf, 0, output.ptr)).to.equal('DECODEME');
@@ -39,7 +39,7 @@ describe('test encode', function() {
     while (input.ptr < input.buf.length) {
       output.buf[output.ptr++] = VLQ.decodeVLQ(input);
     }
-    expect(output.buf).to.deep.equal(new Int32Array([ -1,2,1,7,-1,2,6,2, 0,0 ]));
+    expect(output.buf).to.deep.equal(new Int32Array([ -1, 2, 1, 7, -1, 2, 6, 2, 0, 0 ]));
     expect(output.ptr).to.equal(8);
   });
 
@@ -53,7 +53,8 @@ describe('test encode', function() {
 
     expect(decoder.mappings).to.deep.equal({
       lines: [ {
-        mappings: [ { fieldCount: 4, col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
+        mappings: [
+          { fieldCount: 4, col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
           { fieldCount: 5, col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
           { fieldCount: 5, col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
           { fieldCount: 5, col: 197, src: 0, srcLine: 7,  srcCol: 29, name: 2 },
@@ -70,7 +71,8 @@ describe('test encode', function() {
           { fieldCount: 4, col: 242, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
           { fieldCount: 4, col: 247, src: 0, srcLine: 10, srcCol: 9,  name: undefined },
           { fieldCount: 4, col: 261, src: 0, srcLine: 10, srcCol: 0,  name: undefined },
-          { fieldCount: 4, col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined } ],
+          { fieldCount: 4, col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined },
+        ],
       } ],
     });
   });
