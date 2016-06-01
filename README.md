@@ -40,7 +40,7 @@ Typically, the following steps are required:
 var map = JSON.parse(fs.readFileSync('path/to/source/to/decode.js.map'));
 var toBuffer = require('string2buffer');
 
-var buffer = toBuffer(map);
+var buffer = toBuffer(map.mappings);
 ```
 
 Setup the reader and decoder
@@ -56,6 +56,6 @@ Now for some actual decoding
 
 ```js
 mappingsDecoder.decode(reader);
-decoder.lines // => is the quickly decoded
+decoder.mappings // => is the quickly decoded
 ```
 
