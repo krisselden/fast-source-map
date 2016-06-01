@@ -1,22 +1,8 @@
 var assert = require('assert');
 var VLQ = require('../index');
 
-function toString(buffer, offset, len) {
-  var str = '';
-  for (var i=offset; i<len; i++) {
-    str += String.fromCharCode(buffer[i]);
-  }
-  return str;
-}
-
-function toBuffer(str) {
-  var buffer = new Uint8Array(str.length);
-  for (var i=0; i<buffer.length; i++) {
-    // this is for base64 so we know these are all < 123
-    buffer[i] = str.charCodeAt(i)|0;
-  }
-  return buffer;
-}
+var toBuffer = require('string2buffer');
+var toString = toBuffer.bufferToString;
 
 describe('test encode', function() {
   it('encodeVLQ', function() {
