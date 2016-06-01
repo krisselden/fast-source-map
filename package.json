@@ -11,6 +11,7 @@
     "chai": "^3.5.0",
     "do-you-even-bench": "^1.0.2",
     "eslint": "^2.11.1",
+    "lodash.merge": "^3.3.2",
     "mocha": "^2.5.3",
     "rollup": "^0.25.0",
     "rollup-plugin-babel": "^1.0.0",
