@@ -1,9 +1,8 @@
 import * as VLQ from '../../lib/index';
+import toBuffer from '../../lib/utils/to-buffer';
+import toString from '../../lib/utils/to-string';
 
 var expect = require('chai').expect;
-
-var toBuffer = require('string2buffer');
-var toString = toBuffer.bufferToString;
 
 describe('test encode', function() {
   it('encodeVLQ', function() {
