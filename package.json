@@ -8,6 +8,7 @@
     "test": "test"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "do-you-even-bench": "^1.0.2",
     "eslint": "^2.11.1",
     "mocha": "^2.5.3",

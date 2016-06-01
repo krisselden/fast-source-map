@@ -1,4 +1,4 @@
-var assert = require('assert');
+var expect = require('chai').expect;
 var VLQ = require('../index');
 
 var toBuffer = require('string2buffer');
@@ -16,14 +16,14 @@ describe('test encode', function() {
       VLQ.encodeVLQ(output, n);
     });
 
-    assert.deepEqual(toString(output.buf, 0, output.ptr), '2HwcqxB29B8oBiU');
+    expect(toString(output.buf, 0, output.ptr)).to.equal('2HwcqxB29B8oBiU');
 
     output = new VLQ.IntBufferWriter(new Int32Array(10), 0);
 
     [ -1,2,1,7,-1,2,6,2 ].forEach(function (n) {
       VLQ.encodeVLQ(output, n);
     });
-    assert.deepEqual(toString(output.buf, 0, output.ptr), 'DECODEME');
+    expect(toString(output.buf, 0, output.ptr)).to.equal('DECODEME');
   });
 
   it('decodeVLQ', function() {
@@ -38,8 +38,8 @@ describe('test encode', function() {
     while (input.ptr < input.buf.length) {
       output.buf[output.ptr++] = VLQ.decodeVLQ(input);
     }
-    assert.deepEqual(output.buf, new Int32Array([ -1,2,1,7,-1,2,6,2, 0,0 ]));
-    assert.equal(output.ptr, 8);
+    expect(output.buf).to.deep.equal(new Int32Array([ -1,2,1,7,-1,2,6,2, 0,0 ]));
+    expect(output.ptr).to.equal(8);
   });
 
   it('mappings decoder', function() {
@@ -50,7 +50,7 @@ describe('test encode', function() {
     var decoder = new VLQ.Decoder();
     var mappingsDecoder = new VLQ.MappingsDecoder(decoder).decode(reader);
 
-    assert.deepEqual(decoder.mappings, {
+    expect(decoder.mappings).to.deep.equal({
       lines: [ {
         mappings: [ { col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
           { col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
@@ -84,18 +84,18 @@ describe('test encode', function() {
 
     var mappings = decoder.mappings;
 
-    assert.equal(mappings.lines.length, 25, 'mappings.lines.length');
-    assert.equal(mappings.lines[0].mappings.length, 1);
-    assert.deepEqual(mappings.lines[0].mappings[0], { srcLine: 0, srcCol: 12, src: 0, col: 12, name: undefined }, 'YAAY');
+    expect(mappings.lines.length, 'mappings.lines.length').to.equal(25);
+    expect(mappings.lines[0].mappings.length).to.equal(1);
+    expect(mappings.lines[0].mappings[0], 'YAAY').to.deep.equal({ srcLine: 0, srcCol: 12, src: 0, col: 12, name: undefined });
 
-    assert.equal(mappings.lines[1].mappings.length, 0);
-    assert.equal(mappings.lines[2].mappings.length, 8);
+    expect(mappings.lines[1].mappings.length).to.equal(0);
+    expect(mappings.lines[2].mappings.length).to.equal(8);
 
-    assert.deepEqual(mappings.lines[2].mappings[0], { srcLine: 0, srcCol: -9, src: 0, col:  0, name: undefined }, 'AAArB');
-    assert.deepEqual(mappings.lines[2].mappings[1], { srcLine: 0, srcCol:  0, src: 0, col: 11, name: undefined }, 'WAAS');
-    assert.deepEqual(mappings.lines[2].mappings[2], { srcLine: 0, srcCol: 12, src: 0, col: 23, name: undefined }, 'YAAY');
-    assert.deepEqual(mappings.lines[2].mappings[3], { srcLine: 0, srcCol: 13, src: 0, col: 24, name: undefined }, 'CAAC');
-    assert.deepEqual(mappings.lines[2].mappings[4], { srcLine: 0, srcCol: 17, src: 0, col: 28, name: undefined }, 'IAAI');
-    assert.deepEqual(mappings.lines[2].mappings[5], { srcLine: 0, srcCol: 19, src: 0, col: 30, name: undefined }, 'EAAE');
+    expect(mappings.lines[2].mappings[0], 'AAArB').to.deep.equal({ srcLine: 0, srcCol: -9, src: 0, col:  0, name: undefined });
+    expect(mappings.lines[2].mappings[1], 'WAAS').to.deep.equal({ srcLine: 0, srcCol:  0, src: 0, col: 11, name: undefined });
+    expect(mappings.lines[2].mappings[2], 'YAAY').to.deep.equal({ srcLine: 0, srcCol: 12, src: 0, col: 23, name: undefined });
+    expect(mappings.lines[2].mappings[3], 'CAAC').to.deep.equal({ srcLine: 0, srcCol: 13, src: 0, col: 24, name: undefined });
+    expect(mappings.lines[2].mappings[4], 'IAAI').to.deep.equal({ srcLine: 0, srcCol: 17, src: 0, col: 28, name: undefined });
+    expect(mappings.lines[2].mappings[5], 'EAAE').to.deep.equal({ srcLine: 0, srcCol: 19, src: 0, col: 30, name: undefined });
   });
 });
