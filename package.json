@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "eslint lib test/lib",
     "test": "./test/bin/build-and-run-tests",
+    "test:debug": "./test/bin/build-and-run-tests-debug",
     "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
