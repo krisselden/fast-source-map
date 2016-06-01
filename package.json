@@ -10,7 +10,7 @@
   "devDependencies": {
     "do-you-even-bench": "^1.0.2",
     "eslint": "^2.11.1",
-    "qunitjs": "^1.19.0",
+    "mocha": "^2.5.3",
     "rollup": "^0.25.0",
     "rollup-plugin-babel": "^1.0.0",
     "sane": "^1.2.0",
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "lint": "eslint lib test/lib",
-    "test": "node test.js",
+    "test": "mocha",
     "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
