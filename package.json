@@ -8,16 +8,22 @@
     "test": "test"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "do-you-even-bench": "^1.0.2",
-    "qunitjs": "^1.19.0",
-    "rollup": "^0.15.0",
+    "eslint": "^2.11.1",
+    "lodash.merge": "^3.3.2",
+    "mocha": "^2.5.3",
+    "rollup": "^0.25.0",
+    "rollup-plugin-babel": "^1.0.0",
+    "rollup-plugin-multi-entry": "^1.1.0",
     "sane": "^1.2.0",
-    "source-map": "^0.5.0",
-    "string2buffer": "^1.0.0"
+    "source-map": "^0.5.0"
   },
   "scripts": {
-    "test": "node test.js",
-    "build": "rollup -f umd -n VLQ -o index.js lib/index.js",
+    "lint": "eslint lib test/lib",
+    "test": "./test/bin/build-and-run-tests",
+    "test:debug": "./test/bin/build-and-run-tests-debug",
+    "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -32,5 +38,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/krisselden/fast-source-map.git"
+  },
+  "dependencies": {
+    "concat-stream": "^1.5.1"
   }
 }

@@ -40,7 +40,7 @@ Typically, the following steps are required:
 var map = JSON.parse(fs.readFileSync('path/to/source/to/decode.js.map'));
 var toBuffer = require('string2buffer');
 
-var buffer = toBuffer(map);
+var buffer = toBuffer(map.mappings);
 ```
 
 Setup the reader and decoder
@@ -56,6 +56,38 @@ Now for some actual decoding
 
 ```js
 mappingsDecoder.decode(reader);
-decoder.lines // => is the quickly decoded
+decoder.mappings // => is the quickly decoded
+```
+
+
+To concatenate multiple source maps
+
+```js
+var toBuffer = require('string2buffer');
+var decodeFile = VLQ.decodeFile;
+
+var concatenator = new VLQ.SourceMapConcatenator();
+concatenator.push(decodeFile('path/to/file-1.js.map'));
+concatenator.push(decodeFile('path/to/file-2.js.map'));
+concatenator.push(decodeFile('path/to/file-3.js.map'));
+
+concatenator.toJSON(); // => the concatenated source maps
+```
+
+Now to reconcatenate the source maps after a source file is removed.
+
+```js
+// file-2.js.map is removed
+concatenator.splice(1, 1);
+concatenator.toJSON(); // => the concatenated source maps
+```
+
+And reconcatenate again after adding back other files.
+
+```js
+// an updated file 2 and a new file 4 are added
+concatenator.splice(1, 0, decodeFile('path/to/file-2-updated.js.map'));
+concatenator.push(decodeFile('path/to/file-4.js.map'));
+concatenator.toJSON(); // => the concatenated source maps
 ```
 

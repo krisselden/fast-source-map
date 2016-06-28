@@ -1,1 +1,2 @@
-node_modules
+tmp/tests.js
+/node_modules

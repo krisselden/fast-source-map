@@ -1,49 +1,35 @@
 var fs = require('fs');
 var VLQ = require('../');
-var toBuffer = require('string2buffer');
+var assert = require('assert');
 
-var parsedSourceMap = JSON.parse(fs.readFileSync('bench/scala.js.map'));
+function test() {
+  var parsed = JSON.parse(fs.readFileSync('bench/scala.js.map'));
+  var start = Date.now();
+  var decoded = VLQ.decode(parsed);
 
-var mappings = {
-  lines: [],
-};
-
-var currentLine = { mappings: [] };
-var decoder = new VLQ.MappingsDecoder({
-  newline: function () {
-    currentLine = { mappings: [] };
-    mappings.lines.push(currentLine);
-  },
-
-  mapping1: function (col) {
-    currentLine.mappings.push({ col: col });
-  },
-
-  mapping4: function (col, src, srcLine, srcCol) {
-    currentLine.mappings.push({
-    col: col,
-    src: src,
-    srcLine: srcLine,
-    srcCol: srcCol
-    });
-  },
-
-  mapping5: function (col, src, srcLine, srcCol, name) {
-    currentLine.mappings.push({
-      col: col,
-      src: src,
-      srcLine: srcLine,
-      srcCol: srcCol,
-      name: name
-    });
+  return {
+    duration: Date.now() - start,
+    decoded: decoded,
   }
-});
+}
 
-var start = Date.now();
-var buffer = toBuffer(parsedSourceMap.mappings);
-var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
+console.log('first run:', test().duration + 'ms'); // warm up
 
-decoder.decode(reader);
+// let the world settle down
+setTimeout(function() {
+  var result = test(); // actual test run
+  var decoded = result.decoded;
+  console.log('second run:', result.duration + 'ms'); // actual run
 
-mappings.lines.forEach(function() { });
-console.log(Date.now() - start);
+  // make sure the output appears reasonable
+  assert(decoded.mappings.lines.length === 379201, 'correct number of mappings')
+  assert.deepEqual(decoded.mappings.lines[0], {
+    mappings: [
+      { col: 0, src: 0, srcLine: 0, srcCol: 0, name: undefined },
+    ],
+  });
+
+  assert.deepEqual(decoded.mappings.lines[379200], {
+    mappings: [ ]
+  });
+}, 100);
