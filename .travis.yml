@@ -7,12 +7,5 @@ node_js:
   - "5"
   - "6"
 
-script: npm test
 before_install:
   - npm config set spin false
-install:
-  - node --version
-  - npm --version
-  - git --version
-  - npm install
-  - npm run build
