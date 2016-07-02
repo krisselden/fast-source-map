@@ -254,8 +254,8 @@ const map1_2 = {
 };
 
 
-describe('Concatenator.prototype.toJSON', () => {
-  it('can output an empty source map', () => {
+describe('Concatenator.prototype.toJSON', function() {
+  it('can output an empty source map', function() {
     let concatenator = new Concatenator();
 
     expect(concatenator.toJSON()).to.deep.equal({
@@ -268,7 +268,7 @@ describe('Concatenator.prototype.toJSON', () => {
     }, 'concatenator can output the empty case');
   });
 
-  it('can output a single source map', () => {
+  it('can output a single source map', function() {
     var concatenator = new Concatenator();
 
     var map1 = {
@@ -310,7 +310,7 @@ describe('Concatenator.prototype.toJSON', () => {
     }, 'concatenator can output a single source map');
   });
 
-  it('can produce simple merged source maps', () => {
+  it('can produce simple merged source maps', function() {
     var concatenator = new Concatenator();
 
     concatenator.push(map1);
@@ -320,8 +320,8 @@ describe('Concatenator.prototype.toJSON', () => {
   });
 });
 
-describe('Concatenator.prototype.splice', () => {
-  it('can splice mappings', () => {
+describe('Concatenator.prototype.splice', function() {
+  it('can splice mappings', function() {
     var concatenator = new Concatenator();
 
     // [map1, map2]
