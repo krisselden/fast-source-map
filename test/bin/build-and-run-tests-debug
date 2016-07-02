@@ -1,5 +1,0 @@
-#!/bin/sh
-
-mkdir tmp 2> /dev/null
-rollup -c rollup.tests.js > ./tmp/tests.js
-./node_modules/.bin/mocha debug ./tmp/tests.js
