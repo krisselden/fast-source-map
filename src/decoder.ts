@@ -7,10 +7,18 @@ export interface Mapping {
   name: number;
 }
 
+export interface LineMappings {
+  mappings: Array<Mapping>;
+}
+
+export interface FileMappings {
+  lines: Array<LineMappings>;
+}
+
 export default class Decoder {
   currentLine: Array<Mapping> = [];
 
-  mappings = {
+  mappings: FileMappings = {
     lines: [{
       mappings: this.currentLine,
     }],
