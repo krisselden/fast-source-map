@@ -24,34 +24,19 @@
   ```
 
 */
-export default function Concatenator() {
-  if (!(this instanceof Concatenator)) {
-    throw new TypeError('Use `new VLQ.Concatenator`');
-  }
-
+export default class Concatenator {
   /**
-    Contains the raw decoded input source maps.
-  */
-  this.maps = [];
+   * Contains the raw decoded input source maps.
+   */
+  maps = [];
 
-  /**
-    Contains concatenated maps.
-
-    `concatenatedMaps[i]` is the
-  */
-  // this.concatenatedMaps = [];
-
-  // this.validAdjustedMappingsIndex = 0;
-}
-
-Concatenator.prototype = {
   push(sourceMap) {
     this.maps.push(sourceMap);
-  },
+  }
 
   splice() {
     this.maps.splice.apply(this.maps, arguments);
-  },
+  }
 
   toJSON(options) {
     options = options || {};
@@ -99,5 +84,5 @@ Concatenator.prototype = {
       mappings,
       file: '',
     };
-  },
+  }
 };
