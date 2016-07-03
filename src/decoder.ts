@@ -1,18 +1,16 @@
-export default function Decoder() {
-  this.currentLine = {
+export default class Decoder {
+  currentLine = {
     mappings: [],
   };
 
-  this.mappings = {
+  mappings = {
     lines: [ this.currentLine ],
   };
-}
 
-Decoder.prototype = {
   newline() {
     this.currentLine = { mappings: [] };
     this.mappings.lines.push(this.currentLine);
-  },
+  }
 
   mapping1(col) {
     this.currentLine.mappings.push({
@@ -23,7 +21,7 @@ Decoder.prototype = {
       srcCol: undefined,
       name: undefined,
     });
-  },
+  }
 
   mapping4(col, src, srcLine, srcCol) {
     this.currentLine.mappings.push({
@@ -34,7 +32,7 @@ Decoder.prototype = {
       srcCol,
       name: undefined,
     });
-  },
+  }
 
   mapping5(col, src, srcLine, srcCol, name) {
     this.currentLine.mappings.push({
@@ -45,5 +43,5 @@ Decoder.prototype = {
       srcCol,
       name,
     });
-  },
+  }
 };
