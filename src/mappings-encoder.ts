@@ -1,17 +1,15 @@
-export default function MappingsEncoder(delegate) {
-  this.delegate     = delegate;
-  this.column       = 0;
-  this.source       = 0;
-  this.sourceLine   = 0;
-  this.sourceColumn = 0;
-  this.name         = 0;
-}
+export default class MappingsEncoder {
+  column = 0;
+  source = 0;
+  sourceLine = 0;
+  sourceColumn = 0;
+  name = 0;
+  delegate;
 
-function missingFieldCount() {
-  throw new TypeError('mappings to encode require fieldCount');
-}
+  constructor(delegate) {
+    this.delegate = delegate;
+  }
 
-MappingsEncoder.prototype = {
   encode({ mappings }) {
     for (let i = 0; i < mappings.lines.length;i++) {
       let line = mappings.lines[i];
@@ -48,15 +46,15 @@ MappingsEncoder.prototype = {
     }
 
     return this.delegate.length;
-  },
+  }
 
   separator() {
     this.delegate.separator();
-  },
+  }
 
   newline() {
     this.delegate.newline();
-  },
+  }
 
   write5(mapping) {
     this.delegate.write5(
@@ -71,7 +69,7 @@ MappingsEncoder.prototype = {
     this.sourceLine   = mapping.srcLine;
     this.sourceColumn = mapping.srcCol;
     this.name         = mapping.name;
-  },
+  }
 
   write4(mapping) {
     this.delegate.write4(
@@ -84,11 +82,15 @@ MappingsEncoder.prototype = {
     this.source       = mapping.src;
     this.sourceLine   = mapping.srcLine;
     this.sourceColumn = mapping.srcCol;
-  },
+  }
 
   write1(mapping) {
     this.delegate.write1(mapping.col - this.column);
 
     this.column = mapping.col;
-  },
+  }
 };
+
+function missingFieldCount() {
+  throw new TypeError('mappings to encode require fieldCount');
+}
