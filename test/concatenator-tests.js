@@ -1,4 +1,4 @@
-import Concatenator from '../lib/concatenator';
+import Concatenator from '../src/concatenator';
 
 import map1 from './fixtures/map1';
 import map2 from './fixtures/map2';

@@ -2,8 +2,8 @@
   "name": "fast-source-map",
   "version": "0.1.0",
   "description": "fast source mapping decode/encode",
-  "main": "index.js",
-  "jsnext:main": "lib/index.js",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
   "directories": {
     "test": "test"
   },
@@ -23,7 +23,7 @@
     "lint": "eslint lib test/lib",
     "test": "./test/bin/build-and-run-tests",
     "test:debug": "./test/bin/build-and-run-tests-debug",
-    "build": "rollup -c rollup.js -f umd -n VLQ -o index.js lib/index.js",
+    "build": "rollup -c rollup.js -f umd -n VLQ -o lib/index.js",
     "prepublish": "npm run build"
   },
   "keywords": [
