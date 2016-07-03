@@ -9,3 +9,7 @@ node_js:
 
 before_install:
   - npm config set spin false
+
+install:
+  - npm install
+  - npm run typings install
