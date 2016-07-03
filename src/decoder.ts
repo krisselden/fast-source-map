@@ -1,5 +1,14 @@
+export interface Mapping {
+  fieldCount: number;
+  col: number;
+  src: number;
+  srcLine: number;
+  srcCol: number;
+  name: number;
+}
+
 export default class Decoder {
-  currentLine = [];
+  currentLine: Array<Mapping> = [];
 
   mappings = {
     lines: [{
