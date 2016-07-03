@@ -1,12 +1,22 @@
+export interface Delegate {
+  newline(): void;
+  separator(): void;
+  write1(column: number): void;
+  write4(column: number, source: number, sourceLine: number, sourceColumn: number): void;
+  write5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number): void;
+  length: number;
+}
+
 export default class MappingsEncoder {
   column = 0;
   source = 0;
   sourceLine = 0;
   sourceColumn = 0;
   name = 0;
-  delegate;
 
-  constructor(delegate) {
+  delegate: Delegate;
+
+  constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 

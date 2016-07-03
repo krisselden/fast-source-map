@@ -1,4 +1,6 @@
-export default class Encoder {
+import { Delegate } from './mappings-encoder';
+
+export default class Encoder implements Delegate {
   buf;
 
   constructor(buf) {
