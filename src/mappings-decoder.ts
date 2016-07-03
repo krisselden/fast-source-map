@@ -1,5 +1,12 @@
 import { decodeVLQ } from './vlq';
 
+export interface Delegate {
+  newline(): void;
+  mapping1(column: number): void;
+  mapping4(column: number, source: number, sourceLine: number, sourceColumn: number): void;
+  mapping5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number): void;
+}
+
 export default class MappingsDecoder {
   // absolutes
   line = 0;
@@ -11,9 +18,9 @@ export default class MappingsDecoder {
 
   fieldCount = 0;
 
-  delegate;
+  delegate: Delegate;
 
-  constructor(delegate) {
+  constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 

@@ -1,3 +1,5 @@
+import { Delegate } from './mappings-decoder';
+
 export interface Mapping {
   fieldCount: number;
   col: number;
@@ -15,7 +17,7 @@ export interface FileMappings {
   lines: Array<LineMappings>;
 }
 
-export default class Decoder {
+export default class Decoder implements Delegate {
   currentLine: Array<Mapping> = [];
 
   mappings: FileMappings = {
