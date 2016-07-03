@@ -3,6 +3,8 @@ import Concatenator from '../../lib/concatenator';
 import map1 from '../fixtures/map1';
 import map2 from '../fixtures/map2';
 import map1_2 from '../fixtures/map1-2';
+import map3_4 from '../fixtures/map3-4';
+import map3_4_1 from '../fixtures/map3-4-1';
 
 var expect = require('chai').expect;
 var merge = require('lodash.merge');
@@ -71,6 +73,13 @@ describe('Concatenator', function() {
       concatenator.push(map2);
 
       expect(concatenator.toJSON()).to.deep.equal(map1_2);
+    });
+
+    it('can merge source maps with multiple sources', function() {
+      concatenator.push(map3_4);
+      concatenator.push(map1);
+
+      expect(concatenator.toJSON()).to.deep.equal(map3_4_1);
     });
   });
 
