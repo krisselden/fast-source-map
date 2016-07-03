@@ -1,4 +1,4 @@
-import MappingsEncoder from '../../lib/mappings-encoder';
+import MappingsEncoder from '../lib/mappings-encoder';
 
 const expect = require('chai').expect;
 
