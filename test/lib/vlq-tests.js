@@ -12,9 +12,6 @@ const expect = require('chai').expect;
 
 describe('test encode', function() {
   it('encodeVLQ', function() {
-    let pos = 0;
-    let buffer = [ 123, 456, 789, 987, 654, 321 ];
-    let input = new IntBufferReader(buffer, 0, buffer.length);
     let output = new IntBufferWriter([], 0);
 
     [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
@@ -53,7 +50,9 @@ describe('test encode', function() {
     let reader = new IntBufferReader(buffer, 0, buffer.length);
 
     let decoder = new Decoder();
-    let mappingsDecoder = new MappingsDecoder(decoder).decode(reader);
+    let mappingsDecoder = new MappingsDecoder(decoder);
+
+    mappingsDecoder.decode(reader);
 
     expect(decoder.mappings).to.deep.equal({
       lines: [ {
