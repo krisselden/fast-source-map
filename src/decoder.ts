@@ -1,19 +1,19 @@
 export default class Decoder {
-  currentLine = {
-    mappings: [],
-  };
+  currentLine = [];
 
   mappings = {
-    lines: [ this.currentLine ],
+    lines: [{
+      mappings: this.currentLine,
+    }],
   };
 
   newline() {
-    this.currentLine = { mappings: [] };
-    this.mappings.lines.push(this.currentLine);
+    this.currentLine = [];
+    this.mappings.lines.push({ mappings: this.currentLine });
   }
 
   mapping1(col) {
-    this.currentLine.mappings.push({
+    this.currentLine.push({
       fieldCount: 1,
       col,
       src: undefined,
@@ -24,7 +24,7 @@ export default class Decoder {
   }
 
   mapping4(col, src, srcLine, srcCol) {
-    this.currentLine.mappings.push({
+    this.currentLine.push({
       fieldCount: 4,
       col,
       src,
@@ -35,7 +35,7 @@ export default class Decoder {
   }
 
   mapping5(col, src, srcLine, srcCol, name) {
-    this.currentLine.mappings.push({
+    this.currentLine.push({
       fieldCount: 5,
       col,
       src,
