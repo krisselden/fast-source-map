@@ -25,7 +25,7 @@ setTimeout(function() {
   assert(decoded.mappings.lines.length === 379201, 'correct number of mappings')
   assert.deepEqual(decoded.mappings.lines[0], {
     mappings: [
-      { col: 0, src: 0, srcLine: 0, srcCol: 0, name: undefined },
+      { fieldCount: 4, col: 0, src: 0, srcLine: 0, srcCol: 0, name: undefined },
     ],
   });
 
