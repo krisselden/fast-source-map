@@ -1,258 +1,13 @@
 import Concatenator from '../../lib/concatenator';
 
+import map1 from '../fixtures/map1';
+import map2 from '../fixtures/map2';
+import map1_2 from '../fixtures/map1-2';
+import map3_4 from '../fixtures/map3-4';
+import map3_4_1 from '../fixtures/map3-4-1';
+
 var expect = require('chai').expect;
 var merge = require('lodash.merge');
-
-const map1 = {
-  version: "3",
-  sources: [ "test/fixtures/inner/first.js" ],
-  sourcesContent: [
-    "function meaningOfLife() {\n  throw new Error(42);\n}\n\nfunction boom() {\n  throw new Error('boom');\n}\n",
-  ],
-  names: [],
-  mappings: {
-    "lines": [
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 0,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 1,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 2,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 3,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 4,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 5,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 6,
-            "srcCol": 0,
-          },
-        ],
-      },
-    ],
-  },
-  file: 'map1.js',
-};
-
-const map2 = {
-  version: "3",
-  sources: [
-    "test/fixtures/inner/second.js",
-  ],
-  sourcesContent: [
-    "function somethingElse() {\n  throw new Error(\"somethign else\");\n}\n",
-  ],
-  names: [],
-  mappings: {
-    "lines": [
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 0,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 1,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 2,
-            "srcCol": 0,
-          },
-        ],
-      },
-    ],
-  },
-  file: 'map2.js',
-};
-
-const map1_2 = {
-  version: '3',
-  sources: [
-    "test/fixtures/inner/first.js",
-    "test/fixtures/inner/second.js",
-  ],
-  sourcesContent: [
-    "function meaningOfLife() {\n  throw new Error(42);\n}\n\nfunction boom() {\n  throw new Error('boom');\n}\n",
-    "function somethingElse() {\n  throw new Error(\"somethign else\");\n}\n",
-  ],
-  names: [],
-  mappings: {
-    "lines": [
-      // first.js mappings
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 0,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 1,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 2,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 3,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 4,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 5,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 0,
-            "srcLine": 6,
-            "srcCol": 0,
-          },
-        ],
-      },
-      // second.js mappings
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 1,
-            "srcLine": 0,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 1,
-            "srcLine": 1,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "col": 0,
-            "src": 1,
-            "srcLine": 2,
-            "srcCol": 0,
-          },
-        ],
-      },
-    ],
-  },
-  file: '',
-};
-
 
 describe('Concatenator', function() {
   let concatenator;
@@ -318,6 +73,13 @@ describe('Concatenator', function() {
       concatenator.push(map2);
 
       expect(concatenator.toJSON()).to.deep.equal(map1_2);
+    });
+
+    it('can merge source maps with multiple sources', function() {
+      concatenator.push(map3_4);
+      concatenator.push(map1);
+
+      expect(concatenator.toJSON()).to.deep.equal(map3_4_1);
     });
   });
 
