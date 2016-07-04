@@ -254,87 +254,87 @@ const map1_2 = {
 };
 
 
-describe('Concatenator.prototype.toJSON', () => {
-  it('can output an empty source map', () => {
-    let concatenator = new Concatenator();
+describe('Concatenator', function() {
+  let concatenator;
 
-    expect(concatenator.toJSON()).to.deep.equal({
-      version: '3',
-      sources: [],
-      sourcesContent: [],
-      names: [],
-      mappings: { lines: [] },
-      file: '',
-    }, 'concatenator can output the empty case');
+  beforeEach(function() {
+    concatenator = new Concatenator();
   });
 
-  it('can output a single source map', () => {
-    var concatenator = new Concatenator();
+  describe('toJSON()', function() {
+    it('can output an empty source map', function() {
+      expect(concatenator.toJSON()).to.deep.equal({
+        version: '3',
+        sources: [],
+        sourcesContent: [],
+        names: [],
+        mappings: { lines: [] },
+        file: '',
+      }, 'concatenator can output the empty case');
+    });
 
-    var map1 = {
-      version: "3",
-      sources: [ 'file1.js' ],
-      sourcesContent: [],
-      names: [],
-      mappings: {
-        lines: [ {
-          mappings: [ {
-            col: 0,
-            src: 0,
-            srcLine: 1,
-            srcCol: 0,
+    it('can output a single source map', function() {
+      var map1 = {
+        version: "3",
+        sources: [ 'file1.js' ],
+        sourcesContent: [],
+        names: [],
+        mappings: {
+          lines: [ {
+            mappings: [ {
+              col: 0,
+              src: 0,
+              srcLine: 1,
+              srcCol: 0,
+            } ],
           } ],
-        } ],
-      },
-      file: 'map1.js',
-    };
+        },
+        file: 'map1.js',
+      };
 
-    concatenator.push(map1);
+      concatenator.push(map1);
 
-    expect(concatenator.toJSON()).to.deep.equal({
-      version: '3',
-      sources: [ 'file1.js' ],
-      sourcesContent: [],
-      names: [],
-      mappings: {
-        lines: [ {
-          mappings: [ {
-            col: 0,
-            src: 0,
-            srcLine: 1,
-            srcCol: 0,
+      expect(concatenator.toJSON()).to.deep.equal({
+        version: '3',
+        sources: [ 'file1.js' ],
+        sourcesContent: [],
+        names: [],
+        mappings: {
+          lines: [ {
+            mappings: [ {
+              col: 0,
+              src: 0,
+              srcLine: 1,
+              srcCol: 0,
+            } ],
           } ],
-        } ],
-      },
-      file: '',
-    }, 'concatenator can output a single source map');
+        },
+        file: '',
+      }, 'concatenator can output a single source map');
+    });
+
+    it('can produce simple merged source maps', function() {
+      concatenator.push(map1);
+      concatenator.push(map2);
+
+      expect(concatenator.toJSON()).to.deep.equal(map1_2);
+    });
   });
 
-  it('can produce simple merged source maps', () => {
-    var concatenator = new Concatenator();
+  describe('splice()', function() {
+    it('can splice mappings', function() {
+      // [map1, map2]
+      concatenator.splice(0, 0, map1, map2);
+      expect(concatenator.toJSON()).to.deep.equal(map1_2);
 
-    concatenator.push(map1);
-    concatenator.push(map2);
+      // [map2]
+      concatenator.splice(0, 1);
+      expect(concatenator.toJSON()).to.deep.equal(merge({}, map2, { file: '' }));
 
-    expect(concatenator.toJSON()).to.deep.equal(map1_2);
-  });
-});
-
-describe('Concatenator.prototype.splice', () => {
-  it('can splice mappings', () => {
-    var concatenator = new Concatenator();
-
-    // [map1, map2]
-    concatenator.splice(0, 0, map1, map2);
-    expect(concatenator.toJSON()).to.deep.equal(map1_2);
-
-    // [map2]
-    concatenator.splice(0, 1);
-    expect(concatenator.toJSON()).to.deep.equal(merge({}, map2, { file: '' }));
-
-    // [map2]
-    concatenator.splice(0, 0, map1);
-    expect(concatenator.toJSON()).to.deep.equal(map1_2);
+      // [map2]
+      concatenator.splice(0, 0, map1);
+      expect(concatenator.toJSON()).to.deep.equal(map1_2);
+    });
   });
 });
 

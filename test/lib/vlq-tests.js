@@ -12,23 +12,20 @@ const expect = require('chai').expect;
 
 describe('test encode', function() {
   it('encodeVLQ', function() {
-    let pos = 0;
-    let buffer = [ 123, 456, 789, 987, 654, 321 ];
-    let input = new IntBufferReader(buffer, 0, buffer.length);
-    let output = new IntBufferWriter([], 0);
+    let writer = new IntBufferWriter([], 0);
 
     [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
-      encodeVLQ(output, n);
+      encodeVLQ(writer, n);
     });
 
-    expect(toString(output.buf, 0, output.ptr)).to.equal('2HwcqxB29B8oBiU');
+    expect(toString(writer.buf, 0, writer.ptr)).to.equal('2HwcqxB29B8oBiU');
 
-    output = new IntBufferWriter(new Int32Array(10), 0);
+    writer = new IntBufferWriter(new Int32Array(10), 0);
 
     [ -1, 2, 1, 7, -1, 2, 6, 2 ].forEach(function (n) {
-      encodeVLQ(output, n);
+      encodeVLQ(writer, n);
     });
-    expect(toString(output.buf, 0, output.ptr)).to.equal('DECODEME');
+    expect(toString(writer.buf, 0, writer.ptr)).to.equal('DECODEME');
   });
 
   it('decodeVLQ', function() {
@@ -53,7 +50,9 @@ describe('test encode', function() {
     let reader = new IntBufferReader(buffer, 0, buffer.length);
 
     let decoder = new Decoder();
-    let mappingsDecoder = new MappingsDecoder(decoder).decode(reader);
+    let mappingsDecoder = new MappingsDecoder(decoder);
+
+    mappingsDecoder.decode(reader);
 
     expect(decoder.mappings).to.deep.equal({
       lines: [ {
@@ -139,12 +138,12 @@ describe('test encode', function() {
     let buffer = [];
     let writer = new IntBufferWriter(buffer, 0);
     let encoder = new Encoder(writer);
-    let mapper = new MappingsEncoder(encoder);
+    let mappingsEncoder = new MappingsEncoder(encoder);
 
-    let length = mapper.encode(decoded);
+    mappingsEncoder.encode(decoded);
 
-    expect(length, 'mapper.encode(decoded)').to.deep.equal(102); // TODO: this number is likely not right...
-    expect(toString(buffer, 0, length))
+    expect(buffer.length, 'mapper.encode(decoded)').to.deep.equal(102); // TODO: this number is likely not right...
+    expect(toString(buffer, 0, buffer.length))
       .to.deep.equal('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
   });
 });
