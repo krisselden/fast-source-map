@@ -7,7 +7,9 @@
     "declaration": true
   },
   "files": [
-    "./src/index.ts",
+    "src/index.ts",
+    "src/cli/decode-source-map.ts",
+    "src/cli/encode-source-map.ts",
     "typings/index.d.ts"
   ]
 }
