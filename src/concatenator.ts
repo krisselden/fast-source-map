@@ -42,29 +42,19 @@ export default class Concatenator {
     options = options || {};
     var encode = ! (options.encode === false);
 
-    var sources = this.maps.reduce(function (acc, map) {
-      return acc.concat(map.sources);
-    }, []);
-
-    var sourcesContent = this.maps.reduce(function (acc, map) {
-      return acc.concat(map.sourcesContent);
-    }, []);
-
-    var names = this.maps.reduce(function (acc, map) {
-      return acc.concat(map.names);
-    }, []);
+    var sources = this.maps.reduce((acc, map) => acc.concat(map.sources), []);
+    var sourcesContent = this.maps.reduce((acc, map) => acc.concat(map.sourcesContent), []);
+    var names = this.maps.reduce((acc, map) => acc.concat(map.names), []);
 
     var offset = 0;
-    var mappings = this.maps.reduce(function (acc, map) {
-      acc.lines = acc.lines.concat(map.mappings.lines.map(function (lineMappings) {
-        var transformedLineMappings = lineMappings.mappings.map(function (mapping) {
-          return {
-            col: mapping.col,
-            src: mapping.src + offset,
-            srcLine: mapping.srcLine,
-            srcCol: mapping.srcCol,
-          };
-        });
+    var mappings = this.maps.reduce((acc, map) => {
+      acc.lines = acc.lines.concat(map.mappings.lines.map(lineMappings => {
+        var transformedLineMappings = lineMappings.mappings.map(mapping => ({
+          col: mapping.col,
+          src: mapping.src + offset,
+          srcLine: mapping.srcLine,
+          srcCol: mapping.srcCol,
+        }));
 
         return {
           mappings: transformedLineMappings,
