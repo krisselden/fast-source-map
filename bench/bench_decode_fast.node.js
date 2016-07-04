@@ -1,11 +1,11 @@
 var fs = require('fs');
-var VLQ = require('../');
+var decode = require('../lib/decode').decode;
 var assert = require('assert');
 
 function test() {
   var parsed = JSON.parse(fs.readFileSync('bench/scala.js.map'));
   var start = Date.now();
-  var decoded = VLQ.decode(parsed);
+  var decoded = decode(parsed);
 
   return {
     duration: Date.now() - start,
