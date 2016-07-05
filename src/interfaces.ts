@@ -23,3 +23,12 @@ export interface LineDescriptor {
 export interface DecodedMappings {
   lines: Array<LineDescriptor>;
 }
+
+export interface DecodedSourceMap {
+  version: string;
+  sources: Array<string>;
+  sourcesContent: Array<string>;
+  names: Array<string>;
+  mappings: DecodedMappings;
+  file: string;
+}

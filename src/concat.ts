@@ -1,3 +1,5 @@
+import { DecodedSourceMap, DecodedMappings } from './interfaces';
+
 /**
   A function that concatenates source maps.
 
@@ -24,13 +26,13 @@
   ```
 
 */
-export default function concat(maps) {
+export default function concat(maps: Array<DecodedSourceMap>): DecodedSourceMap {
   var sources = maps.reduce((acc, map) => acc.concat(map.sources), []);
   var sourcesContent = maps.reduce((acc, map) => acc.concat(map.sourcesContent), []);
   var names = maps.reduce((acc, map) => acc.concat(map.names), []);
 
   var offset = 0;
-  var mappings = maps.reduce((acc, map) => {
+  var mappings = maps.reduce((acc: DecodedMappings, map) => {
     acc.lines = acc.lines.concat(map.mappings.lines.map(lineMappings => {
       var transformedLineMappings = lineMappings.mappings.map(mapping => ({
         fieldCount: mapping.fieldCount,
