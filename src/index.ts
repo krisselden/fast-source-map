@@ -5,6 +5,6 @@ export { default as MappingsEncoder } from './mappings-encoder';
 export { default as MappingsDecoder } from './mappings-decoder';
 export { default as Encoder } from './encoder';
 export { default as Decoder } from './decoder';
-export { default as Concatenator } from './concatenator';
+export { default as concat } from './concat';
 export { decode, decodeFile } from './decode';
 export { encode, encodeFile } from './encode';
