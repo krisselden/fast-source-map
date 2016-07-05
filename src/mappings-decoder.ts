@@ -1,4 +1,5 @@
 import { decodeVLQ } from './vlq';
+import Reader from './reader';
 
 export interface Delegate {
   newline(): void;
@@ -24,9 +25,9 @@ export default class MappingsDecoder {
     this.delegate = delegate;
   }
 
-  decode(reader) {
-    while (reader.ptr < reader.limit) {
-      switch (reader.buf[reader.ptr]) {
+  decode(reader: Reader) {
+    while (reader.hasNext()) {
+      switch (reader.peek()) {
         case 59: // semicolon
           if (this.fieldCount > 0) {
             this.emitMapping();
@@ -34,12 +35,12 @@ export default class MappingsDecoder {
           this.emitNewline();
           this.column = 0;
           this.fieldCount = 0;
-          reader.ptr++;
+          reader.next();
           break;
         case 44: // comma
           this.emitMapping();
           this.fieldCount = 0;
-          reader.ptr++;
+          reader.next();
           break;
         default:
           this.decodeField(reader);
