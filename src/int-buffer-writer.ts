@@ -9,16 +9,20 @@ export default class IntBufferWriter {
     this.ptr = ptr|0;
   }
 
+  write(n) {
+    this.buf[this.ptr++] = n;
+  }
+
   writeVLQ(n) {
     encodeVLQ(this, n);
   }
 
   separator() {
-    this.buf[this.ptr++] = 44; /* , */
+    this.write(44); /* , */
   }
 
   newline() {
-    this.buf[this.ptr++] = 59; /* ; */
+    this.write(59); /* ; */
   }
 
   get length() {

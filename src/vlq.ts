@@ -13,7 +13,7 @@ export function encodeVLQ(writer, v) {
     if (cont) {
       digit |= 32;
     }
-    writer.buf[writer.ptr++] = uint6ToASCII[digit];
+    writer.write(uint6ToASCII[digit]);
   } while (cont);
 }
 
