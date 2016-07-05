@@ -1,10 +1,10 @@
 import { Delegate } from './mappings-decoder';
-import { Mapping, FileMappings } from './interfaces';
+import { DecodedMapping, DecodedMappings } from './interfaces';
 
 export default class Decoder implements Delegate {
-  currentLine: Array<Mapping> = [];
+  currentLine: Array<DecodedMapping> = [];
 
-  mappings: FileMappings = {
+  mappings: DecodedMappings = {
     lines: [{
       mappings: this.currentLine,
     }],

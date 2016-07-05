@@ -1,4 +1,4 @@
-export interface Mapping {
+export interface DecodedMapping {
   fieldCount: number;
   col: number;
   src: number;
@@ -7,10 +7,12 @@ export interface Mapping {
   name: number;
 }
 
-export interface LineMappings {
-  mappings: Array<Mapping>;
+export type LineMappings = Array<DecodedMapping>
+
+export interface LineDescriptor {
+  mappings: LineMappings;
 }
 
-export interface FileMappings {
-  lines: Array<LineMappings>;
+export interface DecodedMappings {
+  lines: Array<LineDescriptor>;
 }
