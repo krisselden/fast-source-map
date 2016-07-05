@@ -13,14 +13,6 @@ export default class IntBufferWriter implements Writer {
     this.buf[this.ptr++] = n;
   }
 
-  separator() {
-    this.write(44); /* , */
-  }
-
-  newline() {
-    this.write(59); /* ; */
-  }
-
   get length() {
     return this.buf.length;
   }

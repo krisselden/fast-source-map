@@ -9,11 +9,11 @@ export default class Encoder implements Delegate {
   }
 
   separator() {
-    this.writer.separator();
+    this.writer.write(44); /* , */
   }
 
   newline() {
-    this.writer.newline();
+    this.writer.write(59); /* ; */
   }
 
   write5(column, source, sourceLine, sourceColumn, name) {
