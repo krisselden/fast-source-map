@@ -7,7 +7,6 @@ import map3_4 from './fixtures/map3-4';
 import map3_4_1 from './fixtures/map3-4-1';
 
 var expect = require('chai').expect;
-var merge = require('lodash.merge');
 
 describe('concat()', function() {
   it('can output an empty source map', function() {
