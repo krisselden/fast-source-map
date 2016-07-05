@@ -32,8 +32,8 @@ class Encoder implements Delegate {
 }
 
 describe('Encoder', function() {
-  let encoder;
-  let mapper;
+  let encoder: Encoder;
+  let mapper: MappingsEncoder;
   let mapping;
 
   beforeEach( function() {
