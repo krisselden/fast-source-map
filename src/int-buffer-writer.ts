@@ -9,7 +9,7 @@ export default class IntBufferWriter {
     this.ptr = ptr|0;
   }
 
-  write(n) {
+  writeVLQ(n) {
     encodeVLQ(this, n);
   }
 

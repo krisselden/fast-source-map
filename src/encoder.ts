@@ -16,22 +16,22 @@ export default class Encoder implements Delegate {
   }
 
   write5(column, source, sourceLine, sourceColumn, name) {
-    this.writer.write(column);
-    this.writer.write(source);
-    this.writer.write(sourceLine);
-    this.writer.write(sourceColumn);
-    this.writer.write(name);
+    this.writer.writeVLQ(column);
+    this.writer.writeVLQ(source);
+    this.writer.writeVLQ(sourceLine);
+    this.writer.writeVLQ(sourceColumn);
+    this.writer.writeVLQ(name);
   }
 
   write4(column, source, sourceLine, sourceColumn) {
-    this.writer.write(column);
-    this.writer.write(source);
-    this.writer.write(sourceLine);
-    this.writer.write(sourceColumn);
+    this.writer.writeVLQ(column);
+    this.writer.writeVLQ(source);
+    this.writer.writeVLQ(sourceLine);
+    this.writer.writeVLQ(sourceColumn);
   }
 
   write1(column) {
-    this.writer.write(column);
+    this.writer.writeVLQ(column);
   }
 
   get length() {
