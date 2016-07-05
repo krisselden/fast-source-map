@@ -1,4 +1,5 @@
 import { Delegate } from './mappings-encoder';
+import { encodeVLQ } from './vlq';
 
 export default class Encoder implements Delegate {
   writer;
@@ -16,22 +17,22 @@ export default class Encoder implements Delegate {
   }
 
   write5(column, source, sourceLine, sourceColumn, name) {
-    this.writer.writeVLQ(column);
-    this.writer.writeVLQ(source);
-    this.writer.writeVLQ(sourceLine);
-    this.writer.writeVLQ(sourceColumn);
-    this.writer.writeVLQ(name);
+    encodeVLQ(this.writer, column);
+    encodeVLQ(this.writer, source);
+    encodeVLQ(this.writer, sourceLine);
+    encodeVLQ(this.writer, sourceColumn);
+    encodeVLQ(this.writer, name);
   }
 
   write4(column, source, sourceLine, sourceColumn) {
-    this.writer.writeVLQ(column);
-    this.writer.writeVLQ(source);
-    this.writer.writeVLQ(sourceLine);
-    this.writer.writeVLQ(sourceColumn);
+    encodeVLQ(this.writer, column);
+    encodeVLQ(this.writer, source);
+    encodeVLQ(this.writer, sourceLine);
+    encodeVLQ(this.writer, sourceColumn);
   }
 
   write1(column) {
-    this.writer.writeVLQ(column);
+    encodeVLQ(this.writer, column);
   }
 
   get length() {
