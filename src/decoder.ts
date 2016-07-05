@@ -5,14 +5,12 @@ export default class Decoder implements Delegate {
   currentLine: Array<FullDecodedMapping> = [];
 
   mappings: DecodedMappings = {
-    lines: [{
-      mappings: this.currentLine,
-    }],
+    lines: [this.currentLine],
   };
 
   newline() {
     this.currentLine = [];
-    this.mappings.lines.push({ mappings: this.currentLine });
+    this.mappings.lines.push(this.currentLine);
   }
 
   mapping1(col) {

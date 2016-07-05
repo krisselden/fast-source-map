@@ -60,8 +60,7 @@ describe("test encode", function() {
     mappingsDecoder.decode(reader);
 
     expect(decoder.mappings).to.deep.equal({
-      lines: [ {
-        mappings: [
+      lines: [ [
           { fieldCount: 4, col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: 0 },
           { fieldCount: 5, col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
           { fieldCount: 5, col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
@@ -80,8 +79,7 @@ describe("test encode", function() {
           { fieldCount: 4, col: 247, src: 0, srcLine: 10, srcCol: 9,  name: 0 },
           { fieldCount: 4, col: 261, src: 0, srcLine: 10, srcCol: 0,  name: 0 },
           { fieldCount: 4, col: 267, src: 0, srcLine: 10, srcCol: 31, name: 0 },
-        ],
-      } ],
+      ] ],
     });
   });
 
@@ -96,25 +94,24 @@ describe("test encode", function() {
     let mappings = decoder.mappings;
 
     expect(mappings.lines.length, "mappings.lines.length").to.equal(25);
-    expect(mappings.lines[0].mappings.length).to.equal(1);
-    expect(mappings.lines[0].mappings[0], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 12, name: 0 });
+    expect(mappings.lines[0].length).to.equal(1);
+    expect(mappings.lines[0][0], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 12, name: 0 });
 
-    expect(mappings.lines[1].mappings.length).to.equal(0);
-    expect(mappings.lines[2].mappings.length).to.equal(8);
+    expect(mappings.lines[1].length).to.equal(0);
+    expect(mappings.lines[2].length).to.equal(8);
 
-    expect(mappings.lines[2].mappings[0], "AAArB").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: -9, src: 0, col:  0, name: 0 });
-    expect(mappings.lines[2].mappings[1], "WAAS").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol:  0, src: 0, col: 11, name: 0 });
-    expect(mappings.lines[2].mappings[2], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 23, name: 0 });
-    expect(mappings.lines[2].mappings[3], "CAAC").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 13, src: 0, col: 24, name: 0 });
-    expect(mappings.lines[2].mappings[4], "IAAI").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 17, src: 0, col: 28, name: 0 });
-    expect(mappings.lines[2].mappings[5], "EAAE").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 19, src: 0, col: 30, name: 0 });
+    expect(mappings.lines[2][0], "AAArB").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: -9, src: 0, col:  0, name: 0 });
+    expect(mappings.lines[2][1], "WAAS").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol:  0, src: 0, col: 11, name: 0 });
+    expect(mappings.lines[2][2], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 23, name: 0 });
+    expect(mappings.lines[2][3], "CAAC").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 13, src: 0, col: 24, name: 0 });
+    expect(mappings.lines[2][4], "IAAI").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 17, src: 0, col: 28, name: 0 });
+    expect(mappings.lines[2][5], "EAAE").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 19, src: 0, col: 30, name: 0 });
   });
 
   it("encoder", function() {
     // (lines + segemnts * 6) = byte_count
     let decoded = {
-      lines: [ {
-        mappings: [
+      lines: [ [
           { fieldCount: 4, col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: 0 },
           { fieldCount: 5, col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
           { fieldCount: 5, col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
@@ -132,8 +129,8 @@ describe("test encode", function() {
           { fieldCount: 4, col: 242, src: 0, srcLine: 9,  srcCol: 0,  name: 0 },
           { fieldCount: 4, col: 247, src: 0, srcLine: 10, srcCol: 9,  name: 0 },
           { fieldCount: 4, col: 261, src: 0, srcLine: 10, srcCol: 0,  name: 0 },
-          { fieldCount: 4, col: 267, src: 0, srcLine: 10, srcCol: 31, name: 0 } ],
-      } ],
+          { fieldCount: 4, col: 267, src: 0, srcLine: 10, srcCol: 31, name: 0 },
+      ] ],
     };
 
     // TODO: pretty sure we can do a Uint8Array here

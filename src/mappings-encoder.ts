@@ -26,8 +26,8 @@ export default class MappingsEncoder {
     for (let i = 0; i < mappings.lines.length; i++) {
       let line = mappings.lines[i];
 
-      for (let j = 0; j < line.mappings.length; j++) {
-        let mapping = line.mappings[j];
+      for (let j = 0; j < line.length; j++) {
+        let mapping = line[j];
 
         switch (mapping.fieldCount) {
           case 1:
@@ -43,7 +43,7 @@ export default class MappingsEncoder {
             missingFieldCount();
         }
 
-        if (j < line.mappings.length - 1) {
+        if (j < line.length - 1) {
           // no trailing segment separator
           this.separator();
         }

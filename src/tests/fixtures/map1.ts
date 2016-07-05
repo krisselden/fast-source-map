@@ -7,83 +7,69 @@ export default {
   names: [],
   mappings: {
     "lines": [
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 0,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 1,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 2,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 3,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 4,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 5,
-            "srcCol": 0,
-          },
-        ],
-      },
-      {
-        "mappings": [
-          {
-            "fieldCount": 4,
-            "col": 0,
-            "src": 0,
-            "srcLine": 6,
-            "srcCol": 0,
-          },
-        ],
-      },
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 0,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 1,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 2,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 3,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 4,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 5,
+          "srcCol": 0,
+        },
+      ],
+      [
+        {
+          "fieldCount": 4,
+          "col": 0,
+          "src": 0,
+          "srcLine": 6,
+          "srcCol": 0,
+        },
+      ],
     ],
   },
   file: "map1.js",

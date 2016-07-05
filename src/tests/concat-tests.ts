@@ -26,15 +26,15 @@ describe("concat()", function() {
       sourcesContent: [],
       names: [],
       mappings: {
-        lines: [ {
-          mappings: [ {
+        lines: [
+          [ {
             fieldCount: 4,
             col: 0,
             src: 0,
             srcLine: 1,
             srcCol: 0,
           } ],
-        } ],
+        ],
       },
       file: "map1.js",
     };
@@ -45,15 +45,15 @@ describe("concat()", function() {
       sourcesContent: [],
       names: [],
       mappings: {
-        lines: [ {
-          mappings: [ {
+        lines: [ 
+          [ {
             fieldCount: 4,
             col: 0,
             src: 0,
             srcLine: 1,
             srcCol: 0,
           } ],
-        } ],
+        ],
       },
       file: "",
     }, "concatenator can output a single source map");

@@ -82,8 +82,8 @@ describe("Encoder", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
-        lines: [ {
-          mappings: [ {
+        lines: [
+          [ {
             fieldCount: 1,
             col: 105,
             src: 0,
@@ -105,7 +105,7 @@ describe("Encoder", function() {
             srcCol: 0,
             name: 0
           } ],
-        } ],
+        ],
       });
 
       expect(encoder.writes).to.deep.equal([ 105, ",", 95, ",", 100 ]);
@@ -115,8 +115,8 @@ describe("Encoder", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
-        lines: [ {
-          mappings: [ {
+        lines: [
+          [ {
             fieldCount: 5,
             col: 10,
             src: 11,
@@ -138,7 +138,7 @@ describe("Encoder", function() {
             srcCol: 33,
             name: 0
           } ],
-        } ],
+        ],
       });
 
       expect(encoder.writes).to.deep.equal([
@@ -152,8 +152,8 @@ describe("Encoder", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
-        lines: [ {
-          mappings: [ {
+        lines: [
+          [ {
             fieldCount: 1,
             col: 10,
             src: 0,
@@ -163,9 +163,7 @@ describe("Encoder", function() {
           }, {
             fieldCount: 1,
             col: 20,
-          } ],
-        }, {
-          mappings: [ {
+          } ], [ {
             fieldCount: 1,
             col: 100,
             src: 0,
@@ -173,7 +171,7 @@ describe("Encoder", function() {
             srcCol: 0,
             name: 0
           } ],
-        } ],
+        ],
       });
 
       expect(encoder.writes).to.deep.equal([
@@ -186,8 +184,8 @@ describe("Encoder", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
-        lines: [ {
-          mappings: [ {
+        lines: [
+          [ {
             fieldCount: 1,
             col: 10,
             src: 0,
@@ -202,8 +200,7 @@ describe("Encoder", function() {
             srcCol: 0,
             name: 0
           } ],
-        }, {
-          mappings: [ {
+          [ {
             fieldCount: 5,
             col: 100,
             src: 101,
@@ -211,8 +208,7 @@ describe("Encoder", function() {
             srcCol: 103,
             name: 104,
           } ],
-        }, {
-          mappings: [ {
+          [ {
             fieldCount: 4,
             col: 200,
             src: 201,
@@ -227,7 +223,7 @@ describe("Encoder", function() {
             srcCol: 303,
             name: 0
           } ],
-        } ],
+        ],
       });
 
       expect(encoder.writes).to.deep.equal([
