@@ -1,40 +1,40 @@
 import { Delegate } from './mappings-encoder';
 
 export default class Encoder implements Delegate {
-  buf;
+  writer;
 
-  constructor(buf) {
-    this.buf = buf;
+  constructor(writer) {
+    this.writer = writer;
   }
 
   separator() {
-    this.buf.separator();
+    this.writer.separator();
   }
 
   newline() {
-    this.buf.newline();
+    this.writer.newline();
   }
 
   write5(column, source, sourceLine, sourceColumn, name) {
-    this.buf.write(column);
-    this.buf.write(source);
-    this.buf.write(sourceLine);
-    this.buf.write(sourceColumn);
-    this.buf.write(name);
+    this.writer.write(column);
+    this.writer.write(source);
+    this.writer.write(sourceLine);
+    this.writer.write(sourceColumn);
+    this.writer.write(name);
   }
 
   write4(column, source, sourceLine, sourceColumn) {
-    this.buf.write(column);
-    this.buf.write(source);
-    this.buf.write(sourceLine);
-    this.buf.write(sourceColumn);
+    this.writer.write(column);
+    this.writer.write(source);
+    this.writer.write(sourceLine);
+    this.writer.write(sourceColumn);
   }
 
   write1(column) {
-    this.buf.write(column);
+    this.writer.write(column);
   }
 
   get length() {
-    return this.buf.length;
+    return this.writer.length;
   }
 };
