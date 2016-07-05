@@ -1,10 +1,11 @@
 import { Delegate } from './mappings-encoder';
 import { encodeVLQ } from './vlq';
+import Writer from './writer';
 
 export default class Encoder implements Delegate {
-  writer;
+  writer: Writer;
 
-  constructor(writer) {
+  constructor(writer: Writer) {
     this.writer = writer;
   }
 
