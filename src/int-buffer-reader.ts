@@ -24,4 +24,8 @@ export default class IntBufferReader implements Reader {
   next() {
     this.ptr = (this.ptr + 1)|0;
   }
+
+  hasNext(): boolean {
+    return this.ptr < this.limit;
+  }
 }
