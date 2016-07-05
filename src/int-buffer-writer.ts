@@ -1,6 +1,7 @@
 import { encodeVLQ } from './vlq';
+import Writer from './writer';
 
-export default class IntBufferWriter {
+export default class IntBufferWriter implements Writer {
   buf;
   ptr;
 
