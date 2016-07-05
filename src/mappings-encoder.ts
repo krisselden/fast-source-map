@@ -1,3 +1,5 @@
+import { DecodedMappings } from './interfaces';
+
 export interface Delegate {
   newline(): void;
   separator(): void;
@@ -20,7 +22,7 @@ export default class MappingsEncoder {
     this.delegate = delegate;
   }
 
-  encode({ mappings }) {
+  encode(mappings: DecodedMappings) {
     for (let i = 0; i < mappings.lines.length;i++) {
       let line = mappings.lines[i];
 

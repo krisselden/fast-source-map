@@ -11,7 +11,7 @@ export function encode(map) {
   let encoder = new Encoder(writer);
   var mappingsEncoder = new MappingsEncoder(encoder);
 
-  mappingsEncoder.encode(map);
+  mappingsEncoder.encode(map.mappings);
 
   map.mappings = toString(buffer, 0, buffer.length);
 

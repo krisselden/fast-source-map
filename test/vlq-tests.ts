@@ -109,29 +109,27 @@ describe('test encode', function() {
   it('encoder', function() {
     // (lines + segemnts * 6) = byte_count
     let decoded = {
-      mappings: {
-        lines: [ {
-          mappings: [
-            { fieldCount: 4,col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
-            { fieldCount: 5,col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
-            { fieldCount: 5,col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
-            { fieldCount: 5,col: 197, src: 0, srcLine: 7,  srcCol: 29, name: 2 },
-            { fieldCount: 5,col: 199, src: 0, srcLine: 7,  srcCol: 33, name: 3 },
-            { fieldCount: 4,col: 202, src: 0, srcLine: 8,  srcCol: 0,  name: undefined },
-            { fieldCount: 5,col: 209, src: 0, srcLine: 8,  srcCol: 10, name: 1 },
-            { fieldCount: 4,col: 212, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
-            { fieldCount: 4,col: 216, src: 0, srcLine: 9,  srcCol: 9,  name: undefined },
-            { fieldCount: 4,col: 225, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
-            { fieldCount: 4,col: 231, src: 0, srcLine: 9,  srcCol: 26, name: undefined },
-            { fieldCount: 5,col: 235, src: 0, srcLine: 9,  srcCol: 30, name: 4 },
-            { fieldCount: 5,col: 238, src: 0, srcLine: 9,  srcCol: 37, name: 2 },
-            { fieldCount: 5,col: 240, src: 0, srcLine: 9,  srcCol: 41, name: 3 },
-            { fieldCount: 4,col: 242, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
-            { fieldCount: 4,col: 247, src: 0, srcLine: 10, srcCol: 9,  name: undefined },
-            { fieldCount: 4,col: 261, src: 0, srcLine: 10, srcCol: 0,  name: undefined },
-            { fieldCount: 4,col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined } ],
-        } ],
-      },
+      lines: [ {
+        mappings: [
+          { fieldCount: 4,col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: undefined },
+          { fieldCount: 5,col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
+          { fieldCount: 5,col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
+          { fieldCount: 5,col: 197, src: 0, srcLine: 7,  srcCol: 29, name: 2 },
+          { fieldCount: 5,col: 199, src: 0, srcLine: 7,  srcCol: 33, name: 3 },
+          { fieldCount: 4,col: 202, src: 0, srcLine: 8,  srcCol: 0,  name: undefined },
+          { fieldCount: 5,col: 209, src: 0, srcLine: 8,  srcCol: 10, name: 1 },
+          { fieldCount: 4,col: 212, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
+          { fieldCount: 4,col: 216, src: 0, srcLine: 9,  srcCol: 9,  name: undefined },
+          { fieldCount: 4,col: 225, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
+          { fieldCount: 4,col: 231, src: 0, srcLine: 9,  srcCol: 26, name: undefined },
+          { fieldCount: 5,col: 235, src: 0, srcLine: 9,  srcCol: 30, name: 4 },
+          { fieldCount: 5,col: 238, src: 0, srcLine: 9,  srcCol: 37, name: 2 },
+          { fieldCount: 5,col: 240, src: 0, srcLine: 9,  srcCol: 41, name: 3 },
+          { fieldCount: 4,col: 242, src: 0, srcLine: 9,  srcCol: 0,  name: undefined },
+          { fieldCount: 4,col: 247, src: 0, srcLine: 10, srcCol: 9,  name: undefined },
+          { fieldCount: 4,col: 261, src: 0, srcLine: 10, srcCol: 0,  name: undefined },
+          { fieldCount: 4,col: 267, src: 0, srcLine: 10, srcCol: 31, name: undefined } ],
+      } ],
     };
 
     // TODO: pretty sure we can do a Uint8Array here
