@@ -33,6 +33,7 @@ export default function concat(maps) {
   var mappings = maps.reduce((acc, map) => {
     acc.lines = acc.lines.concat(map.mappings.lines.map(lineMappings => {
       var transformedLineMappings = lineMappings.mappings.map(mapping => ({
+        fieldCount: mapping.fieldCount,
         col: mapping.col,
         src: mapping.src + offset,
         srcLine: mapping.srcLine,
