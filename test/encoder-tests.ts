@@ -1,8 +1,9 @@
 import MappingsEncoder from '../src/mappings-encoder';
+import { Delegate } from '../src/mappings-encoder';
 
 const expect = require('chai').expect;
 
-class Encoder {
+class Encoder implements Delegate {
   writes = [];
 
   write1(n) {
@@ -23,6 +24,10 @@ class Encoder {
 
   newline() {
     this.writes.push(';');
+  }
+
+  get length() {
+    return this.writes.length;
   }
 }
 
