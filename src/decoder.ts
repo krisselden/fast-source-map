@@ -1,8 +1,8 @@
 import { Delegate } from './mappings-decoder';
-import { DecodedMapping, DecodedMappings } from './interfaces';
+import { FullDecodedMapping, DecodedMappings } from './interfaces';
 
 export default class Decoder implements Delegate {
-  currentLine: Array<DecodedMapping> = [];
+  currentLine: Array<FullDecodedMapping> = [];
 
   mappings: DecodedMappings = {
     lines: [{

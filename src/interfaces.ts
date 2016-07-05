@@ -1,6 +1,13 @@
 export interface DecodedMapping {
   fieldCount: number;
   col: number;
+  src?: number;
+  srcLine?: number;
+  srcCol?: number;
+  name?: number;
+}
+
+export interface FullDecodedMapping extends DecodedMapping{
   src: number;
   srcLine: number;
   srcCol: number;
