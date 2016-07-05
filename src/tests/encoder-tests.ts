@@ -81,32 +81,28 @@ describe("Encoder", function() {
     it("encodes sequences of the same field length", function() {
       expect(encoder.writes).to.deep.equal([]);
 
-      mapper.encode({
-        lines: [
-          [ {
-            fieldCount: 1,
-            col: 105,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          }, {
-            fieldCount: 1,
-            col: 200,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          }, {
-            fieldCount: 1,
-            col: 300,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          } ],
-        ],
-      });
+      mapper.encode([[{
+        fieldCount: 1,
+        col: 105,
+        src: 0,
+        srcLine: 0,
+        srcCol: 0,
+        name: 0
+      }, {
+        fieldCount: 1,
+        col: 200,
+        src: 0,
+        srcLine: 0,
+        srcCol: 0,
+        name: 0
+      }, {
+        fieldCount: 1,
+        col: 300,
+        src: 0,
+        srcLine: 0,
+        srcCol: 0,
+        name: 0
+      }]]);
 
       expect(encoder.writes).to.deep.equal([ 105, ",", 95, ",", 100 ]);
     });
@@ -114,32 +110,28 @@ describe("Encoder", function() {
     it("encodes sequences of mixed field lengths", function() {
       expect(encoder.writes).to.deep.equal([]);
 
-      mapper.encode({
-        lines: [
-          [ {
-            fieldCount: 5,
-            col: 10,
-            src: 11,
-            srcLine: 12,
-            srcCol: 13,
-            name: 14,
-          }, {
-            fieldCount: 1,
-            col: 20,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          }, {
-            fieldCount: 4,
-            col: 30,
-            src: 31,
-            srcLine: 32,
-            srcCol: 33,
-            name: 0
-          } ],
-        ],
-      });
+      mapper.encode([[{
+        fieldCount: 5,
+        col: 10,
+        src: 11,
+        srcLine: 12,
+        srcCol: 13,
+        name: 14,
+      }, {
+        fieldCount: 1,
+        col: 20,
+        src: 0,
+        srcLine: 0,
+        srcCol: 0,
+        name: 0
+      }, {
+        fieldCount: 4,
+        col: 30,
+        src: 31,
+        srcLine: 32,
+        srcCol: 33,
+        name: 0
+      }]]);
 
       expect(encoder.writes).to.deep.equal([
         10, 11, 12, 13, 14, ",",
@@ -151,28 +143,28 @@ describe("Encoder", function() {
     it("encodes multiple lines with single segments", function() {
       expect(encoder.writes).to.deep.equal([]);
 
-      mapper.encode({
-        lines: [
-          [ {
-            fieldCount: 1,
-            col: 10,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          }, {
-            fieldCount: 1,
-            col: 20,
-          } ], [ {
-            fieldCount: 1,
-            col: 100,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          } ],
-        ],
-      });
+      mapper.encode([[
+        {
+          fieldCount: 1,
+          col: 10,
+          src: 0,
+          srcLine: 0,
+          srcCol: 0,
+          name: 0
+        }, {
+          fieldCount: 1,
+          col: 20,
+        }
+      ], [
+        {
+          fieldCount: 1,
+          col: 100,
+          src: 0,
+          srcLine: 0,
+          srcCol: 0,
+          name: 0
+        }
+      ]]);
 
       expect(encoder.writes).to.deep.equal([
         10, ",", 10, ";",
@@ -183,48 +175,48 @@ describe("Encoder", function() {
     it("encodes multiple lines with multiple mixed segments", function() {
       expect(encoder.writes).to.deep.equal([]);
 
-      mapper.encode({
-        lines: [
-          [ {
-            fieldCount: 1,
-            col: 10,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          }, {
-            fieldCount: 1,
-            col: 20,
-            src: 0,
-            srcLine: 0,
-            srcCol: 0,
-            name: 0
-          } ],
-          [ {
-            fieldCount: 5,
-            col: 100,
-            src: 101,
-            srcLine: 102,
-            srcCol: 103,
-            name: 104,
-          } ],
-          [ {
-            fieldCount: 4,
-            col: 200,
-            src: 201,
-            srcLine: 202,
-            srcCol: 203,
-            name: 0
-          }, {
-            fieldCount: 4,
-            col: 300,
-            src: 301,
-            srcLine: 302,
-            srcCol: 303,
-            name: 0
-          } ],
-        ],
-      });
+      mapper.encode([[
+        {
+          fieldCount: 1,
+          col: 10,
+          src: 0,
+          srcLine: 0,
+          srcCol: 0,
+          name: 0
+        }, {
+          fieldCount: 1,
+          col: 20,
+          src: 0,
+          srcLine: 0,
+          srcCol: 0,
+          name: 0
+        }
+      ], [
+        {
+          fieldCount: 5,
+          col: 100,
+          src: 101,
+          srcLine: 102,
+          srcCol: 103,
+          name: 104,
+        }
+      ], [
+        {
+          fieldCount: 4,
+          col: 200,
+          src: 201,
+          srcLine: 202,
+          srcCol: 203,
+          name: 0
+        }, {
+          fieldCount: 4,
+          col: 300,
+          src: 301,
+          srcLine: 302,
+          srcCol: 303,
+          name: 0
+        }
+      ]]);
 
       expect(encoder.writes).to.deep.equal([
         10, ",", 10, ";",

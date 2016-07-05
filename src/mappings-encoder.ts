@@ -23,8 +23,8 @@ export default class MappingsEncoder {
   }
 
   encode(mappings: DecodedMappings) {
-    for (let i = 0; i < mappings.lines.length; i++) {
-      let line = mappings.lines[i];
+    for (let i = 0; i < mappings.length; i++) {
+      let line = mappings[i];
 
       for (let j = 0; j < line.length; j++) {
         let mapping = line[j];
@@ -49,7 +49,7 @@ export default class MappingsEncoder {
         }
       }
 
-      if (i < mappings.lines.length - 1 ) {
+      if (i < mappings.length - 1 ) {
         // skip trailing line separator
         this.newline();
       }

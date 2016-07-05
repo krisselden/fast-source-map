@@ -4,13 +4,11 @@ import { FullDecodedMapping, DecodedMappings } from "./interfaces";
 export default class Decoder implements Delegate {
   currentLine: Array<FullDecodedMapping> = [];
 
-  mappings: DecodedMappings = {
-    lines: [this.currentLine],
-  };
+  mappings: DecodedMappings = [this.currentLine];
 
   newline() {
     this.currentLine = [];
-    this.mappings.lines.push(this.currentLine);
+    this.mappings.push(this.currentLine);
   }
 
   mapping1(col) {

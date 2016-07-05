@@ -9,101 +9,99 @@ export default {
     "function somethingElse() {\n  throw new Error(\"somethign else\");\n}\n",
   ],
   names: [],
-  mappings: {
-    "lines": [
-      // third.js mappings
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 0,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 1,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 2,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 3,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 4,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 5,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 0,
-          "srcLine": 6,
-          "srcCol": 0,
-        },
-      ],
-      // fourth.js mappings
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 1,
-          "srcLine": 0,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 1,
-          "srcLine": 1,
-          "srcCol": 0,
-        },
-      ],
-      [
-        {
-          "fieldCount": 4,
-          "col": 0,
-          "src": 1,
-          "srcLine": 2,
-          "srcCol": 0,
-        },
-      ],
+  mappings: [
+    // third.js mappings
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 0,
+        "srcCol": 0,
+      },
     ],
-  },
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 1,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 2,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 3,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 4,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 5,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 0,
+        "srcLine": 6,
+        "srcCol": 0,
+      },
+    ],
+    // fourth.js mappings
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 1,
+        "srcLine": 0,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 1,
+        "srcLine": 1,
+        "srcCol": 0,
+      },
+    ],
+    [
+      {
+        "fieldCount": 4,
+        "col": 0,
+        "src": 1,
+        "srcLine": 2,
+        "srcCol": 0,
+      },
+    ],
+  ],
   file: "",
 };

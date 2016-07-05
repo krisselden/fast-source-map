@@ -11,16 +11,14 @@ import { DecodedSourceMap, DecodedMappings } from "./interfaces";
       sources: [],
       sourcesContent: [],
       names: [],
-      mappings: {
-        lines: [
-          [{
-            col: <position in output line>,
-            src: <position in sources array>,
-            srcLine: <line within source>,
-            srcCol: <column within source line>,
-          }]
-        ],
-      },
+      mappings: [
+        [{
+          col: <position in output line>,
+          src: <position in sources array>,
+          srcLine: <line within source>,
+          srcCol: <column within source line>,
+        }]
+      ],
       file:
     }
   ```
@@ -39,7 +37,7 @@ export default function concat(maps: DecodedSourceMap[]): DecodedSourceMap {
 
   let offset = 0;
   let mappings = maps.reduce((acc: DecodedMappings, map) => {
-    acc.lines = acc.lines.concat(map.mappings.lines.map(lineMappings => {
+    acc = acc.concat(map.mappings.map(lineMappings => {
       return lineMappings.map(mapping => ({
         fieldCount: mapping.fieldCount,
         col: mapping.col,
@@ -52,7 +50,7 @@ export default function concat(maps: DecodedSourceMap[]): DecodedSourceMap {
     offset += map.sources.length;
 
     return acc;
-  }, { lines: [] });
+  }, []);
 
   return {
     version: "3",
