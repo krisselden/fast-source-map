@@ -1,12 +1,12 @@
-import IntBufferReader from '../../lib/int-buffer-reader';
-import IntBufferWriter from '../../lib/int-buffer-writer';
-import { encodeVLQ, decodeVLQ } from '../../lib/vlq';
-import Decoder from '../../lib/decoder';
-import MappingsDecoder from '../../lib/mappings-decoder';
-import Encoder from '../../lib/encoder';
-import MappingsEncoder from '../../lib/mappings-encoder';
-import toBuffer from '../../lib/utils/to-buffer';
-import toString from '../../lib/utils/to-string';
+import IntBufferReader from '../src/int-buffer-reader';
+import IntBufferWriter from '../src/int-buffer-writer';
+import { encodeVLQ, decodeVLQ } from '../src/vlq';
+import Decoder from '../src/decoder';
+import MappingsDecoder from '../src/mappings-decoder';
+import Encoder from '../src/encoder';
+import MappingsEncoder from '../src/mappings-encoder';
+import toBuffer from '../src/utils/to-buffer';
+import toString from '../src/utils/to-string';
 
 const expect = require('chai').expect;
 
@@ -33,13 +33,14 @@ describe('test encode', function() {
       buf: new Int32Array(10),
       ptr: 0,
     };
-    let input = {
-      buf: toBuffer('DECODEME'),
-      ptr: 0,
-    };
-    while (input.ptr < input.buf.length) {
-      output.buf[output.ptr++] = decodeVLQ(input);
+
+    var buffer = toBuffer('DECODEME');
+    let reader = new IntBufferReader(buffer, 0, buffer.length);
+
+    while (reader.ptr < reader.buf.length) {
+      output.buf[output.ptr++] = decodeVLQ(reader);
     }
+
     expect(output.buf).to.deep.equal(new Int32Array([ -1, 2, 1, 7, -1, 2, 6, 2, 0, 0 ]));
     expect(output.ptr).to.equal(8);
   });

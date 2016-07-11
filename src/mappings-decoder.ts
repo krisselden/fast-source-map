@@ -1,20 +1,29 @@
 import { decodeVLQ } from './vlq';
 
-export default function MappingsDecoder(delegate) {
-  this.delegate = delegate;
-
-  // absolutes
-  this.line = 0;
-  this.column = 0;
-  this.source = 0;
-  this.sourceLine = 0;
-  this.sourceColumn = 0;
-  this.name = 0;
-
-  this.fieldCount = 0;
+export interface Delegate {
+  newline(): void;
+  mapping1(column: number): void;
+  mapping4(column: number, source: number, sourceLine: number, sourceColumn: number): void;
+  mapping5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number): void;
 }
 
-MappingsDecoder.prototype = {
+export default class MappingsDecoder {
+  // absolutes
+  line = 0;
+  column = 0;
+  source = 0;
+  sourceLine = 0;
+  sourceColumn = 0;
+  name = 0;
+
+  fieldCount = 0;
+
+  delegate: Delegate;
+
+  constructor(delegate: Delegate) {
+    this.delegate = delegate;
+  }
+
   decode(reader) {
     while (reader.ptr < reader.limit) {
       switch (reader.buf[reader.ptr]) {
@@ -40,11 +49,11 @@ MappingsDecoder.prototype = {
     if (this.fieldCount > 0) {
       this.emitMapping();
     }
-  },
+  }
 
   emitNewline() {
     this.delegate.newline();
-  },
+  }
 
   emitMapping() {
     switch (this.fieldCount) {
@@ -58,7 +67,7 @@ MappingsDecoder.prototype = {
         this.delegate.mapping5(this.column, this.source, this.sourceLine, this.sourceColumn, this.name);
         break;
     }
-  },
+  }
 
   decodeField(reader) {
     var value = decodeVLQ(reader)|0;
@@ -84,5 +93,5 @@ MappingsDecoder.prototype = {
         this.fieldCount = 5;
         break;
     }
-  },
+  }
 };

@@ -1,10 +1,10 @@
-import Concatenator from '../../lib/concatenator';
+import Concatenator from '../src/concatenator';
 
-import map1 from '../fixtures/map1';
-import map2 from '../fixtures/map2';
-import map1_2 from '../fixtures/map1-2';
-import map3_4 from '../fixtures/map3-4';
-import map3_4_1 from '../fixtures/map3-4-1';
+import map1 from './fixtures/map1';
+import map2 from './fixtures/map2';
+import map1_2 from './fixtures/map1-2';
+import map3_4 from './fixtures/map3-4';
+import map3_4_1 from './fixtures/map3-4-1';
 
 var expect = require('chai').expect;
 var merge = require('lodash.merge');

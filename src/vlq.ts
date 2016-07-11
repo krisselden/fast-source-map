@@ -23,7 +23,7 @@ export function decodeVLQ(reader) {
   var digit = 0;
   var cont = 0;
   do {
-    digit = asciiToUint6[reader.buf[reader.ptr++]];
+    digit = asciiToUint6[reader.read()];
     cont  = digit & 32;
     digit = digit & 31;
     num   = num + (digit << shift);

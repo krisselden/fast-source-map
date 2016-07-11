@@ -1,30 +1,30 @@
-import MappingsEncoder from '../../lib/mappings-encoder';
+import MappingsEncoder from '../src/mappings-encoder';
 
 const expect = require('chai').expect;
 
-function Encoder() {
-  this.writes = [];
+class Encoder {
+  writes = [];
+
+  write1(n) {
+    this.writes.push(n);
+  }
+
+  write4(a, b, c, d) {
+    this.writes.push(a, b, c, d);
+  }
+
+  write5(a, b, c, d, e) {
+    this.writes.push(a, b, c, d, e);
+  }
+
+  separator() {
+    this.writes.push(',');
+  }
+
+  newline() {
+    this.writes.push(';');
+  }
 }
-
-Encoder.prototype.write1 = function(n) {
-  this.writes.push(n);
-};
-
-Encoder.prototype.write4 = function(a, b, c, d) {
-  this.writes.push(a, b, c, d);
-};
-
-Encoder.prototype.write5 = function(a, b, c, d, e) {
-  this.writes.push(a, b, c, d, e);
-};
-
-Encoder.prototype.separator = function () {
-  this.writes.push(',');
-};
-
-Encoder.prototype.newline= function () {
-  this.writes.push(';');
-};
 
 describe('Encoder', function() {
   let encoder;

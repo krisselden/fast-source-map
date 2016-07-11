@@ -3,7 +3,7 @@ import Decoder from './decoder';
 import MappingsDecoder from './mappings-decoder';
 import toBuffer from './utils/to-buffer';
 
-const fs = require('fs');
+import fs = require('fs');
 
 export function decode(map) {
   var buffer = toBuffer(map.mappings);

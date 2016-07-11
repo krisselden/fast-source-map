@@ -1,11 +1,11 @@
 var fs = require('fs');
-var VLQ = require('../');
+var decode = require('../lib/decode').decode;
 var assert = require('assert');
 
 function test() {
   var parsed = JSON.parse(fs.readFileSync('bench/scala.js.map'));
   var start = Date.now();
-  var decoded = VLQ.decode(parsed);
+  var decoded = decode(parsed);
 
   return {
     duration: Date.now() - start,
@@ -25,7 +25,7 @@ setTimeout(function() {
   assert(decoded.mappings.lines.length === 379201, 'correct number of mappings')
   assert.deepEqual(decoded.mappings.lines[0], {
     mappings: [
-      { col: 0, src: 0, srcLine: 0, srcCol: 0, name: undefined },
+      { fieldCount: 4, col: 0, src: 0, srcLine: 0, srcCol: 0, name: undefined },
     ],
   });
 

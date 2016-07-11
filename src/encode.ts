@@ -3,7 +3,7 @@ import Encoder from './encoder';
 import toString from './utils/to-string';
 import MappingsEncoder from './mappings-encoder';
 
-const fs = require('fs');
+import fs = require('fs');
 
 export function encode(map) {
   let buffer = [];

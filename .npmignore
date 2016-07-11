@@ -1,5 +1,7 @@
-/node_modules/
-/bench/
-/test/
-/vendor/
-/test.js
+bench/
+node_modules/
+src/
+test/
+tmp/
+typings/
+vendor/
