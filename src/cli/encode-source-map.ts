@@ -1,7 +1,7 @@
-import { encode, encodeFile } from '../encode';
+import { encode, encodeFile } from "../encode";
 
-var concat = require('concat-stream');
-var length = process.argv.length;
+const concat = require("concat-stream");
+let length = process.argv.length;
 
 if (length === 3) {
   console.log(JSON.stringify(encodeFile(process.argv[2])));
@@ -12,6 +12,6 @@ else if (length === 2) {
   }));
 }
 else {
-  console.error('USAGE: decode FILE');
+  console.error("USAGE: decode FILE");
   process.exit(1);
 }

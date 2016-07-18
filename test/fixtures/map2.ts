@@ -44,5 +44,5 @@ export default {
       },
     ],
   },
-  file: 'map2.js',
-}
+  file: "map2.js",
+};

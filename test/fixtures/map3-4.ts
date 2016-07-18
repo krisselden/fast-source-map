@@ -1,5 +1,5 @@
 export default {
-  version: '3',
+  version: "3",
   sources: [
     "test/fixtures/inner/third.js",
     "test/fixtures/inner/fourth.js",
@@ -125,5 +125,5 @@ export default {
       },
     ],
   },
-  file: '',
-}
+  file: "",
+};

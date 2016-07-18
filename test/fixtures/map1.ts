@@ -86,5 +86,5 @@ export default {
       },
     ],
   },
-  file: 'map1.js',
-}
+  file: "map1.js",
+};
