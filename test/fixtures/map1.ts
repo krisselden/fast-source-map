@@ -10,6 +10,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 0,
@@ -20,6 +21,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 1,
@@ -30,6 +32,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 2,
@@ -40,6 +43,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 3,
@@ -50,6 +54,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 4,
@@ -60,6 +65,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 5,
@@ -70,6 +76,7 @@ export default {
       {
         "mappings": [
           {
+            "fieldCount": 4,
             "col": 0,
             "src": 0,
             "srcLine": 6,

@@ -1,40 +1,42 @@
 import { Delegate } from './mappings-encoder';
+import { encodeVLQ } from './vlq';
+import Writer from './writer';
 
 export default class Encoder implements Delegate {
-  buf;
+  writer: Writer;
 
-  constructor(buf) {
-    this.buf = buf;
+  constructor(writer: Writer) {
+    this.writer = writer;
   }
 
   separator() {
-    this.buf.separator();
+    this.writer.write(44); /* , */
   }
 
   newline() {
-    this.buf.newline();
+    this.writer.write(59); /* ; */
   }
 
   write5(column, source, sourceLine, sourceColumn, name) {
-    this.buf.write(column);
-    this.buf.write(source);
-    this.buf.write(sourceLine);
-    this.buf.write(sourceColumn);
-    this.buf.write(name);
+    encodeVLQ(this.writer, column);
+    encodeVLQ(this.writer, source);
+    encodeVLQ(this.writer, sourceLine);
+    encodeVLQ(this.writer, sourceColumn);
+    encodeVLQ(this.writer, name);
   }
 
   write4(column, source, sourceLine, sourceColumn) {
-    this.buf.write(column);
-    this.buf.write(source);
-    this.buf.write(sourceLine);
-    this.buf.write(sourceColumn);
+    encodeVLQ(this.writer, column);
+    encodeVLQ(this.writer, source);
+    encodeVLQ(this.writer, sourceLine);
+    encodeVLQ(this.writer, sourceColumn);
   }
 
   write1(column) {
-    this.buf.write(column);
+    encodeVLQ(this.writer, column);
   }
 
   get length() {
-    return this.buf.length;
+    return this.writer.length;
   }
 };

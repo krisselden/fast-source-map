@@ -1,4 +1,6 @@
-export default class IntBufferReader {
+import Reader from './reader';
+
+export default class IntBufferReader implements Reader {
   buf;
   ptr;
   limit;
@@ -21,5 +23,9 @@ export default class IntBufferReader {
 
   next() {
     this.ptr = (this.ptr + 1)|0;
+  }
+
+  hasNext(): boolean {
+    return this.ptr < this.limit;
   }
 }

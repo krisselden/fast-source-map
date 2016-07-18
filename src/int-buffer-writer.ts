@@ -1,6 +1,6 @@
-import { encodeVLQ } from './vlq';
+import Writer from './writer';
 
-export default class IntBufferWriter {
+export default class IntBufferWriter implements Writer {
   buf;
   ptr;
 
@@ -10,15 +10,7 @@ export default class IntBufferWriter {
   }
 
   write(n) {
-    encodeVLQ(this, n);
-  }
-
-  separator() {
-    this.buf[this.ptr++] = 44; /* , */
-  }
-
-  newline() {
-    this.buf[this.ptr++] = 59; /* ; */
+    this.buf[this.ptr++] = n;
   }
 
   get length() {

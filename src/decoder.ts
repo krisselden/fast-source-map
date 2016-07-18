@@ -1,26 +1,10 @@
 import { Delegate } from './mappings-decoder';
-
-export interface Mapping {
-  fieldCount: number;
-  col: number;
-  src: number;
-  srcLine: number;
-  srcCol: number;
-  name: number;
-}
-
-export interface LineMappings {
-  mappings: Array<Mapping>;
-}
-
-export interface FileMappings {
-  lines: Array<LineMappings>;
-}
+import { FullDecodedMapping, DecodedMappings } from './interfaces';
 
 export default class Decoder implements Delegate {
-  currentLine: Array<Mapping> = [];
+  currentLine: Array<FullDecodedMapping> = [];
 
-  mappings: FileMappings = {
+  mappings: DecodedMappings = {
     lines: [{
       mappings: this.currentLine,
     }],
