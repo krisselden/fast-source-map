@@ -1,5 +1,7 @@
 # Fast Source Map
 
+[!(Build Status)[https://travis-ci.org/krisselden/fast-source-map.svg?branch=master]]
+
 Keeping the JIT gods happy since circa 2015
 
 When working with sourcemaps, VLQ encoding and decoding typically dominiates
