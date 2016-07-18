@@ -39,6 +39,8 @@
     "url": "https://github.com/krisselden/fast-source-map.git"
   },
   "dependencies": {
-    "concat-stream": "^1.5.1"
+    "concat-stream": "^1.5.1",
+    "tslint": "^3.14.0-dev.0",
+    "typescript": "^2.1.0-dev.20160718"
   }
 }
