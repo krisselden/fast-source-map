@@ -3,7 +3,8 @@
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
-    "outDir": "lib/",
+    "outDir": "lib",
+    "rootDir": "src",
     "declaration": true,
     "strictNullChecks": true
   },
@@ -11,8 +12,6 @@
     "node_modules/**"
   ],
   "filesGlob": [
-    "typings/**.d.ts",
-    "src/**.ts",
-    "test/**.ts"
+    "src/**.ts"
   ]
 }

@@ -1,4 +1,4 @@
-import concat from "../src/concat";
+import concat from "../concat";
 
 import map1 from "./fixtures/map1";
 import map2 from "./fixtures/map2";

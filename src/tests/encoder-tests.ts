@@ -1,5 +1,5 @@
-import MappingsEncoder from "../src/mappings-encoder";
-import { Delegate } from "../src/mappings-encoder";
+import MappingsEncoder from "../mappings-encoder";
+import { Delegate } from "../mappings-encoder";
 
 const expect = require("chai").expect;
 

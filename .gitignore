@@ -1,5 +1,6 @@
-lib/
 node_modules/
-typings/
-*.asm
+lib/
+package/
 *.cfg
+*.asm
+*.tgz

@@ -1,12 +1,12 @@
-import IntBufferReader from "../src/int-buffer-reader";
-import IntBufferWriter from "../src/int-buffer-writer";
-import { encodeVLQ, decodeVLQ } from "../src/vlq";
-import Decoder from "../src/decoder";
-import MappingsDecoder from "../src/mappings-decoder";
-import Encoder from "../src/encoder";
-import MappingsEncoder from "../src/mappings-encoder";
-import toBuffer from "../src/utils/to-buffer";
-import toString from "../src/utils/to-string";
+import IntBufferReader from "../int-buffer-reader";
+import IntBufferWriter from "../int-buffer-writer";
+import { encodeVLQ, decodeVLQ } from "../vlq";
+import Decoder from "../decoder";
+import MappingsDecoder from "../mappings-decoder";
+import Encoder from "../encoder";
+import MappingsEncoder from "../mappings-encoder";
+import toBuffer from "../utils/to-buffer";
+import toString from "../utils/to-string";
 
 const expect = require("chai").expect;
 

@@ -1,7 +1,10 @@
+.vscode/
 bench/
 node_modules/
 src/
-test/
-tmp/
-typings/
 vendor/
+package/
+lib/tests/
+*.cfg
+*.asm
+*.tgz
