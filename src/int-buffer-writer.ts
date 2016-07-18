@@ -1,16 +1,16 @@
-import Writer from './writer';
+import Writer from "./writer";
 
 export default class IntBufferWriter implements Writer {
-  buf;
-  ptr;
+  buf: number[];
+  ptr: number;
 
   constructor(buf, ptr) {
     this.buf = buf;
-    this.ptr = ptr|0;
+    this.ptr = ptr | 0;
   }
 
-  write(n) {
-    this.buf[this.ptr++] = n;
+  write(n: number) {
+    this.buf[this.ptr++] = n | 0;
   }
 
   get length() {

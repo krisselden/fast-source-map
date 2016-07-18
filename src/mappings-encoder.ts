@@ -1,4 +1,4 @@
-import { DecodedMappings } from './interfaces';
+import { DecodedMappings } from "./interfaces";
 
 export interface Delegate {
   newline(): void;
@@ -23,7 +23,7 @@ export default class MappingsEncoder {
   }
 
   encode(mappings: DecodedMappings) {
-    for (let i = 0; i < mappings.lines.length;i++) {
+    for (let i = 0; i < mappings.lines.length; i++) {
       let line = mappings.lines[i];
 
       for (let j = 0; j < line.mappings.length; j++) {
@@ -104,5 +104,5 @@ export default class MappingsEncoder {
 };
 
 function missingFieldCount() {
-  throw new TypeError('mappings to encode require fieldCount');
+  throw new TypeError("mappings to encode require fieldCount");
 }

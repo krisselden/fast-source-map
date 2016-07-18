@@ -1,15 +1,15 @@
-import IntBufferWriter from './int-buffer-writer';
-import Encoder from './encoder';
-import toString from './utils/to-string';
-import MappingsEncoder from './mappings-encoder';
+import IntBufferWriter from "./int-buffer-writer";
+import Encoder from "./encoder";
+import toString from "./utils/to-string";
+import MappingsEncoder from "./mappings-encoder";
 
-import fs = require('fs');
+import fs = require("fs");
 
 export function encode(map) {
   let buffer = [];
   let writer = new IntBufferWriter(buffer, 0);
   let encoder = new Encoder(writer);
-  var mappingsEncoder = new MappingsEncoder(encoder);
+  let mappingsEncoder = new MappingsEncoder(encoder);
 
   mappingsEncoder.encode(map.mappings);
 
@@ -23,7 +23,7 @@ export function encode(map) {
   `mappings`.
 */
 export function encodeFile(path) {
-  var map = JSON.parse(fs.readFileSync(path, { encoding: 'utf8' }));
+  let map = JSON.parse(fs.readFileSync(path, { encoding: "utf8" }));
   return encode(map);
 }
 

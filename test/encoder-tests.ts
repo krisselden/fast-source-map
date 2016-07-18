@@ -1,7 +1,7 @@
-import MappingsEncoder from '../src/mappings-encoder';
-import { Delegate } from '../src/mappings-encoder';
+import MappingsEncoder from "../src/mappings-encoder";
+import { Delegate } from "../src/mappings-encoder";
 
-const expect = require('chai').expect;
+const expect = require("chai").expect;
 
 class Encoder implements Delegate {
   writes = [];
@@ -19,11 +19,11 @@ class Encoder implements Delegate {
   }
 
   separator() {
-    this.writes.push(',');
+    this.writes.push(",");
   }
 
   newline() {
-    this.writes.push(';');
+    this.writes.push(";");
   }
 
   get length() {
@@ -31,7 +31,7 @@ class Encoder implements Delegate {
   }
 }
 
-describe('Encoder', function() {
+describe("Encoder", function() {
   let encoder: Encoder;
   let mapper: MappingsEncoder;
   let mapping;
@@ -49,8 +49,8 @@ describe('Encoder', function() {
     };
   });
 
-  describe('write1', function() {
-    it('writes the `col` field', function() {
+  describe("write1", function() {
+    it("writes the `col` field", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write1(mapping);
@@ -59,8 +59,8 @@ describe('Encoder', function() {
     });
   });
 
-  describe('write4', function() {
-    it('writes the col, src, srcLine and srcCol fields in order', function() {
+  describe("write4", function() {
+    it("writes the col, src, srcLine and srcCol fields in order", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write4(mapping);
@@ -69,8 +69,8 @@ describe('Encoder', function() {
     });
   });
 
-  describe('write5', function() {
-    it('writes the col, src, srcLine, srcCol and name fields in order', function() {
+  describe("write5", function() {
+    it("writes the col, src, srcLine, srcCol and name fields in order", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write5(mapping);
@@ -79,8 +79,8 @@ describe('Encoder', function() {
     });
   });
 
-  describe('encode', function() {
-    it('encodes sequences of the same field length', function() {
+  describe("encode", function() {
+    it("encodes sequences of the same field length", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
@@ -98,10 +98,10 @@ describe('Encoder', function() {
         } ],
       });
 
-      expect(encoder.writes).to.deep.equal([ 105, ',', 95, ',', 100 ]);
+      expect(encoder.writes).to.deep.equal([ 105, ",", 95, ",", 100 ]);
     });
 
-    it('encodes sequences of mixed field lengths', function() {
+    it("encodes sequences of mixed field lengths", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
@@ -127,13 +127,13 @@ describe('Encoder', function() {
       });
 
       expect(encoder.writes).to.deep.equal([
-        10, 11, 12, 13, 14, ',',
-        10, ',',
+        10, 11, 12, 13, 14, ",",
+        10, ",",
         10, 20, 20, 20,
       ]);
     });
 
-    it('encodes multiple lines with single segments', function() {
+    it("encodes multiple lines with single segments", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
@@ -154,12 +154,12 @@ describe('Encoder', function() {
       });
 
       expect(encoder.writes).to.deep.equal([
-        10, ',', 10, ';',
+        10, ",", 10, ";",
         100,
       ]);
     });
 
-    it('encodes multiple lines with multiple mixed segments', function() {
+    it("encodes multiple lines with multiple mixed segments", function() {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode({
@@ -198,9 +198,9 @@ describe('Encoder', function() {
       });
 
       expect(encoder.writes).to.deep.equal([
-        10, ',', 10, ';',
-        100, 101, 102, 103, 104, ';',
-        200, 100, 100, 100, ',', 100, 100, 100, 100,
+        10, ",", 10, ";",
+        100, 101, 102, 103, 104, ";",
+        200, 100, 100, 100, ",", 100, 100, 100, 100,
       ]);
     });
   });

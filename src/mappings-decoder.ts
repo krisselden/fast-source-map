@@ -1,5 +1,5 @@
-import { decodeVLQ } from './vlq';
-import Reader from './reader';
+import { decodeVLQ } from "./vlq";
+import Reader from "./reader";
 
 export interface Delegate {
   newline(): void;
@@ -71,7 +71,7 @@ export default class MappingsDecoder {
   }
 
   decodeField(reader) {
-    var value = decodeVLQ(reader)|0;
+    let value = decodeVLQ(reader) | 0;
     switch (this.fieldCount) {
       case 0:
         this.column += value;

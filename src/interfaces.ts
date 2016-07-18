@@ -7,7 +7,7 @@ export interface DecodedMapping {
   name?: number;
 }
 
-export interface FullDecodedMapping extends DecodedMapping{
+export interface FullDecodedMapping extends DecodedMapping {
   src: number;
   srcLine: number;
   srcCol: number;
