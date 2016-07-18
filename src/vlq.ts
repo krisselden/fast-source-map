@@ -8,10 +8,11 @@ import Reader from "./reader";
 // 1 is the sign bit
 export function encodeVLQ(writer: Writer, v) {
   let num = v < 0 ? (-v << 1) | 1 : v << 1;
+  let cont = false;
   do {
     let digit = num & 31;
     num >>= 5;
-    let cont = num > 0;
+    cont = num > 0;
     if (cont) {
       digit |= 32;
     }

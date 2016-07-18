@@ -4,12 +4,15 @@
     "target": "es5",
     "sourceMap": true,
     "outDir": "lib/",
-    "declaration": true
+    "declaration": true,
+    "strictNullChecks": true
   },
-  "files": [
-    "src/index.ts",
-    "src/cli/decode-source-map.ts",
-    "src/cli/encode-source-map.ts",
-    "typings/index.d.ts"
+  "exclude": [
+    "node_modules/**"
+  ],
+  "filesGlob": [
+    "typings/**.d.ts",
+    "src/**.ts",
+    "test/**.ts"
   ]
 }

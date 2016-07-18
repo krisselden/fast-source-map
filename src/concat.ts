@@ -26,10 +26,16 @@ import { DecodedSourceMap, DecodedMappings } from "./interfaces";
   ```
 
 */
-export default function concat(maps: Array<DecodedSourceMap>): DecodedSourceMap {
-  let sources = maps.reduce((acc, map) => acc.concat(map.sources), []);
-  let sourcesContent = maps.reduce((acc, map) => acc.concat(map.sourcesContent), []);
-  let names = maps.reduce((acc, map) => acc.concat(map.names), []);
+export default function concat(maps: DecodedSourceMap[]): DecodedSourceMap {
+  let sources: string[] = maps.reduce((acc: string[], map: DecodedSourceMap) => {
+    return acc.concat(map.sources);
+  }, []);
+  let sourcesContent = maps.reduce((acc: string[], map: DecodedSourceMap) => {
+    return acc.concat(map.sourcesContent);
+  }, []);
+  let names = maps.reduce((acc: string[], map: DecodedSourceMap) => {
+    return acc.concat(map.names);
+  }, []);
 
   let offset = 0;
   let mappings = maps.reduce((acc: DecodedMappings, map) => {

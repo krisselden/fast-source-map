@@ -4,29 +4,29 @@ import { Delegate } from "../src/mappings-encoder";
 const expect = require("chai").expect;
 
 class Encoder implements Delegate {
-  writes = [];
+  writes: string[] = [];
 
-  write1(n) {
+  write1(n): void {
     this.writes.push(n);
   }
 
-  write4(a, b, c, d) {
+  write4(a, b, c, d): void {
     this.writes.push(a, b, c, d);
   }
 
-  write5(a, b, c, d, e) {
+  write5(a, b, c, d, e): void {
     this.writes.push(a, b, c, d, e);
   }
 
-  separator() {
+  separator(): void {
     this.writes.push(",");
   }
 
-  newline() {
+  newline(): void {
     this.writes.push(";");
   }
 
-  get length() {
+  get length(): number {
     return this.writes.length;
   }
 }
@@ -88,12 +88,24 @@ describe("Encoder", function() {
           mappings: [ {
             fieldCount: 1,
             col: 105,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           }, {
             fieldCount: 1,
             col: 200,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           }, {
             fieldCount: 1,
             col: 300,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           } ],
         } ],
       });
@@ -116,12 +128,17 @@ describe("Encoder", function() {
           }, {
             fieldCount: 1,
             col: 20,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           }, {
             fieldCount: 4,
             col: 30,
             src: 31,
             srcLine: 32,
             srcCol: 33,
+            name: 0
           } ],
         } ],
       });
@@ -141,6 +158,10 @@ describe("Encoder", function() {
           mappings: [ {
             fieldCount: 1,
             col: 10,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           }, {
             fieldCount: 1,
             col: 20,
@@ -149,6 +170,10 @@ describe("Encoder", function() {
           mappings: [ {
             fieldCount: 1,
             col: 100,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           } ],
         } ],
       });
@@ -167,9 +192,17 @@ describe("Encoder", function() {
           mappings: [ {
             fieldCount: 1,
             col: 10,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           }, {
             fieldCount: 1,
             col: 20,
+            src: 0,
+            srcLine: 0,
+            srcCol: 0,
+            name: 0
           } ],
         }, {
           mappings: [ {
@@ -187,12 +220,14 @@ describe("Encoder", function() {
             src: 201,
             srcLine: 202,
             srcCol: 203,
+            name: 0
           }, {
             fieldCount: 4,
             col: 300,
             src: 301,
             srcLine: 302,
             srcCol: 303,
+            name: 0
           } ],
         } ],
       });

@@ -19,10 +19,10 @@ export default class Decoder implements Delegate {
     this.currentLine.push({
       fieldCount: 1,
       col,
-      src: undefined,
-      srcLine: undefined,
-      srcCol: undefined,
-      name: undefined,
+      src: 0,
+      srcLine: 0,
+      srcCol: 0,
+      name: 0,
     });
   }
 
@@ -33,7 +33,7 @@ export default class Decoder implements Delegate {
       src,
       srcLine,
       srcCol,
-      name: undefined,
+      name: 0,
     });
   }
 
