@@ -1,4 +1,5 @@
 import { decodeVLQ } from './vlq';
+import IntBufferReader from './int-buffer-reader';
 
 export interface Delegate {
   newline(): void;
@@ -95,3 +96,35 @@ export default class MappingsDecoder {
     }
   }
 };
+
+// ;;
+// C;
+// CEGI,
+// AAAAK;
+let warm = new Uint8Array([
+  59,59,
+  67,59,
+  67,69,71,73,44,
+  65,65,65,65,75,59
+]);
+
+let lines = 0;
+let decoder = new MappingsDecoder({
+    newline: function () {
+      lines++;
+    },
+    mapping1: function (c) {
+      if (c !== 1) throw new Error("smoke test failed");
+    },
+    mapping4: function (c, s, sl, sc) {
+      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4) throw new Error("smoke test failed");
+    },
+    mapping5: function (c, s, sl, sc, n) {
+      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4 || n !== 5) throw new Error("smoke test failed");
+    }
+});
+
+let reader = new IntBufferReader(warm, 0, warm.length);
+decoder.decode(reader);
+
+if (lines !== 4) throw new Error("smoke test failed");
