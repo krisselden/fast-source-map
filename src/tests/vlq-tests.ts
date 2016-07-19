@@ -1,14 +1,18 @@
-import IntBufferReader from "../int-buffer-reader";
-import IntBufferWriter from "../int-buffer-writer";
-import { encodeVLQ, decodeVLQ } from "../vlq";
-import Decoder from "../decoder";
-import MappingsDecoder from "../mappings-decoder";
-import Encoder from "../encoder";
-import MappingsEncoder from "../mappings-encoder";
 import toBuffer from "../utils/to-buffer";
 import toString from "../utils/to-string";
 
-const expect = require("chai").expect;
+import {
+  IntBufferReader,
+  IntBufferWriter,
+  encodeVLQ,
+  decodeVLQ,
+  Decoder,
+  MappingsDecoder,
+  Encoder,
+  MappingsEncoder
+} from "../index";
+
+import { expect } from "chai";
 
 describe("test encode", function() {
   it("encodeVLQ", function() {

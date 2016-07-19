@@ -1,4 +1,4 @@
-import { encode, encodeFile } from "../encode";
+import { encode, encodeFile } from "../index";
 
 const concat = require("concat-stream");
 let length = process.argv.length;

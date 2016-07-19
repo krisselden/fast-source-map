@@ -1,12 +1,11 @@
-import concat from "../concat";
+import { concat } from "../index";
 
 import map1 from "./fixtures/map1";
 import map2 from "./fixtures/map2";
 import map1_2 from "./fixtures/map1-2";
 import map3_4 from "./fixtures/map3-4";
 import map3_4_1 from "./fixtures/map3-4-1";
-
-const expect = require("chai").expect;
+import { expect } from "chai";
 
 describe("concat()", function() {
   it("can output an empty source map", function() {

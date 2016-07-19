@@ -2,8 +2,7 @@ import IntBufferReader from "./int-buffer-reader";
 import Decoder from "./decoder";
 import MappingsDecoder from "./mappings-decoder";
 import toBuffer from "./utils/to-buffer";
-
-import fs = require("fs");
+import readFile from "./utils/read-file";
 
 export function decode(map) {
   let buffer = toBuffer(map.mappings);
@@ -19,6 +18,5 @@ export function decode(map) {
 }
 
 export function decodeFile(path) {
-  return decode(JSON.parse(fs.readFileSync(path, { encoding: "utf8" })));
+  return decode(JSON.parse(readFile(path)));
 }
-

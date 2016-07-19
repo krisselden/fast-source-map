@@ -1,6 +1,7 @@
 node_modules/
-lib/
-package/
+/lib/
+/package/
+/dist/
 *.cfg
 *.asm
 *.tgz

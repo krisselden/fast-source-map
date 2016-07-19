@@ -2,8 +2,9 @@
   "name": "fast-source-map",
   "version": "0.1.0",
   "description": "fast source mapping decode/encode",
-  "main": "lib/index.js",
-  "typings": "lib/index",
+  "main": "dist/index.js",
+  "jsnext:main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "bin": {
     "decode-source-map": "./bin/decode-source-map",
     "encode-source-map": "./bin/encode-source-map"
@@ -14,17 +15,23 @@
     "@types/node": "^4.0.29",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
-    "source-map": "^0.5.0",
-    "tslint": "^3.13.0",
-    "typescript": "^1.8.10"
+    "rollup": "^0.34.1",
+    "sorcery": "^0.10.0",
+    "tslint": "^3.14.0-dev.0",
+    "typescript": "^2.1.0-dev.20160718"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:typescript && npm run build:rollup && npm run build:rollup-tests && npm run build:rollup-cli-decode && npm run build:rollup-cli-encode",
+    "build:typescript": "tsc",
+    "build:rollup": "rollup -c rollup.config.js && sorcery -i dist/index.js",
+    "build:rollup-tests": "rollup -c rollup.config.tests.js && sorcery -i dist/tests/index.js",
+    "build:rollup-cli-decode": "rollup -c rollup.config.cli-decode.js && sorcery -i dist/cli/decode-source-map.js",
+    "build:rollup-cli-encode": "rollup -c rollup.config.cli-encode.js && sorcery -i dist/cli/encode-source-map.js",
     "lint": "tslint src/**.ts",
     "prepublish": "npm run build",
     "pretest": "npm run lint",
-    "test": "mocha lib/tests/*.js",
-    "test:debug": "mocha debug lib/tests/*.js"
+    "test": "mocha dist/tests/index.js",
+    "test:debug": "mocha debug dist/tests/index.js"
   },
   "keywords": [
     "source-map",
@@ -40,8 +47,6 @@
     "url": "https://github.com/krisselden/fast-source-map.git"
   },
   "dependencies": {
-    "concat-stream": "^1.5.1",
-    "tslint": "^3.14.0-dev.0",
-    "typescript": "^2.1.0-dev.20160718"
+    "concat-stream": "^1.5.1"
   }
 }

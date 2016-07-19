@@ -1,5 +1,5 @@
 var fs = require('fs');
-var decode = require('../lib/decode').decode;
+var decode = require('../dist/index').decode;
 var assert = require('assert');
 
 function test() {

@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-
-require('../lib/cli/encode-source-map');
+require('../dist/cli/encode-source-map');

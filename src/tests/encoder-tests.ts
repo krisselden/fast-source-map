@@ -1,9 +1,7 @@
-import MappingsEncoder from "../mappings-encoder";
-import { Delegate } from "../mappings-encoder";
+import { MappingsEncoder, MappingsEncoderDelegate } from "../index";
+import { expect } from "chai";
 
-const expect = require("chai").expect;
-
-class Encoder implements Delegate {
+class Encoder implements MappingsEncoderDelegate {
   writes: string[] = [];
 
   write1(n): void {

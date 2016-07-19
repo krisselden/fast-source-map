@@ -2,8 +2,7 @@ import IntBufferWriter from "./int-buffer-writer";
 import Encoder from "./encoder";
 import toString from "./utils/to-string";
 import MappingsEncoder from "./mappings-encoder";
-
-import fs = require("fs");
+import readFile from "./utils/read-file";
 
 export function encode(map) {
   let buffer = [];
@@ -23,7 +22,6 @@ export function encode(map) {
   `mappings`.
 */
 export function encodeFile(path) {
-  let map = JSON.parse(fs.readFileSync(path, { encoding: "utf8" }));
+  let map = JSON.parse(readFile(path));
   return encode(map);
 }
-
