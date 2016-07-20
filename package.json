@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "fast source mapping decode/encode",
   "main": "dist/index.js",
+  "browser": "dist/browser.js",
   "jsnext:main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
@@ -23,7 +24,7 @@
   "scripts": {
     "build": "npm run build:typescript && npm run build:rollup && npm run build:rollup-tests && npm run build:rollup-cli-decode && npm run build:rollup-cli-encode",
     "build:typescript": "tsc",
-    "build:rollup": "rollup -c rollup.config.js && sorcery -i dist/index.js",
+    "build:rollup": "rollup -c rollup.config.js && sorcery -i dist/index.js && sorcery -i dist/browser.js",
     "build:rollup-tests": "rollup -c rollup.config.tests.js && sorcery -i dist/tests/index.js",
     "build:rollup-cli-decode": "rollup -c rollup.config.cli-decode.js && sorcery -i dist/cli/decode-source-map.js",
     "build:rollup-cli-encode": "rollup -c rollup.config.cli-encode.js && sorcery -i dist/cli/encode-source-map.js",

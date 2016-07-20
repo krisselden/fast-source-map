@@ -1,0 +1,30 @@
+<html>
+<head>
+  <script src="../dist/browser.js"></script>
+  <script type="text/javascript">
+    "use strict";
+    function decode(sourceMap) {
+      performance.mark("startDecode");
+      let decoded = FSM.decode(JSON.parse(sourceMap));
+      performance.mark("endDecode");
+      return decoded;
+    }
+
+    fetch("./scala.js.map").then(res => res.text()).then(sourceMap => {
+      let test = () => decode(sourceMap);
+      let seq = Promise.resolve();
+      let iterations = 20;
+      while (iterations--) {
+        seq = seq.then(test).then(() => {
+          performance.measure("decode", "startDecode", "endDecode");
+        });
+      }
+      return seq.then(() => {
+        console.log(performance.getEntriesByName("decode"));
+      });
+    }).catch(e => console.error(e));
+  </script>
+</head>
+<body>
+</body>
+</html>
