@@ -10,7 +10,7 @@ export default {
       dest: 'dist/browser.js',
       sourceMap: 'dist/browser.js.map',
       format: 'iife',
-      moduleName: 'FSM'
+      moduleName: 'SM'
     }
   ]
 }

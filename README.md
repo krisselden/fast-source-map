@@ -26,30 +26,33 @@ future plans to work directly on a sourceMap buffer, as that will allow for
 more ideal performance. Even without, the performance improvements are still
 well worth it.
 
-It's also worth noting, this is considered a fairly low level API. Ergonomics
-can still be improved!
-
 ```js
 var buffer = /* try to leave the map inert, and in buffer form. Otherwise convert to buffer */
 ```
 
 Typically, the following steps are required:
 
+Setup the reader
+
+The reader can read mappings from any array of ascii values.
+We will use Uint8Array in this example.
 
 ```js
-var map = JSON.parse(fs.readFileSync('path/to/source/to/decode.js.map'));
-var toBuffer = require('string2buffer');
+let map = JSON.parse(fs.readFileSync('path/to/source/to/decode.js.map', 'utf8'));
 
-var buffer = toBuffer(map.mappings);
+let byteArray = new Uint8Array(map.mappings.length);
+let buffer = Buffer.from(byteArray.buffer);
+buffer.write(map.mappings, 0, 'ascii');
+
+const SM = require("fast-source-map");
+let reader = new SM.IntBufferReader(byteArray, 0, byteArray.length);
 ```
 
-Setup the reader and decoder
+Setup the decoder
 
 ```js
-// setup the reader
-var reader = new VLQ.IntBufferReader(buffer, 0, buffer.length);
-var decoder = new VLQ.Decoder();
-var mappingsDecoder = new VLQ.MappingsDecoder(decoder);
+let decoder = new SM.Decoder();
+let mappingsDecoder = new SM.MappingsDecoder(decoder);
 ```
 
 Now for some actual decoding
@@ -59,14 +62,12 @@ mappingsDecoder.decode(reader);
 decoder.mappings // => is the quickly decoded
 ```
 
-
 To concatenate multiple source maps
 
 ```js
-var toBuffer = require('string2buffer');
-var decodeFile = VLQ.decodeFile;
+const decodeFile = SM.decodeFile;
 
-var concatenator = new VLQ.SourceMapConcatenator();
+let concatenator = new SM.SourceMapConcatenator();
 concatenator.push(decodeFile('path/to/file-1.js.map'));
 concatenator.push(decodeFile('path/to/file-2.js.map'));
 concatenator.push(decodeFile('path/to/file-3.js.map'));
@@ -90,4 +91,3 @@ concatenator.splice(1, 0, decodeFile('path/to/file-2-updated.js.map'));
 concatenator.push(decodeFile('path/to/file-4.js.map'));
 concatenator.toJSON(); // => the concatenated source maps
 ```
-

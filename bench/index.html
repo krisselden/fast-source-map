@@ -10,12 +10,16 @@
       return decoded;
     }
 
+    function delay() {
+      return new Promise(resolve => setTimeout(resolve, 100));
+    }
+
     fetch("./scala.js.map").then(res => res.text()).then(sourceMap => {
       let test = () => decode(sourceMap);
       let seq = Promise.resolve();
       let iterations = 20;
       while (iterations--) {
-        seq = seq.then(test).then(() => {
+        seq = seq.then(delay).then(test).then(() => {
           performance.measure("decode", "startDecode", "endDecode");
         });
       }

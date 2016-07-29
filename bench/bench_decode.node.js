@@ -1,4 +1,4 @@
-var SourceMapConsumer = require('../vendor/source-map/source-map.js').SourceMapConsumer;
+var SourceMapConsumer = require('source-map').SourceMapConsumer;
 var fs = require('fs');
 
 function test() {
