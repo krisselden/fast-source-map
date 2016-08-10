@@ -1,4 +1,4 @@
-# Fast Source Map [![Build Status](https://travis-ci.org/krisselden/fast-source-map.svg?branch=master)](http://travis-ci.org/emberjs/ember.js)
+# Fast Source Map [![Build Status](https://travis-ci.org/krisselden/fast-source-map.svg?branch=master)](https://travis-ci.org/krisselden/fast-source-map)
 
 Keeping the JIT gods happy since circa 2015
 
