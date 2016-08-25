@@ -14,7 +14,7 @@ describe("concat()", function() {
       sources: [],
       sourcesContent: [],
       names: [],
-      mappings: { lines: [] },
+      mappings: [],
       file: "",
     }, "concatenator can output the empty case");
   });
@@ -25,17 +25,13 @@ describe("concat()", function() {
       sources: [ "file1.js" ],
       sourcesContent: [],
       names: [],
-      mappings: {
-        lines: [ {
-          mappings: [ {
-            fieldCount: 4,
-            col: 0,
-            src: 0,
-            srcLine: 1,
-            srcCol: 0,
-          } ],
-        } ],
-      },
+      mappings: [[{
+        fieldCount: 4,
+        col: 0,
+        src: 0,
+        srcLine: 1,
+        srcCol: 0,
+      }]],
       file: "map1.js",
     };
 
@@ -44,17 +40,13 @@ describe("concat()", function() {
       sources: [ "file1.js" ],
       sourcesContent: [],
       names: [],
-      mappings: {
-        lines: [ {
-          mappings: [ {
-            fieldCount: 4,
-            col: 0,
-            src: 0,
-            srcLine: 1,
-            srcCol: 0,
-          } ],
-        } ],
-      },
+      mappings: [[{
+        fieldCount: 4,
+        col: 0,
+        src: 0,
+        srcLine: 1,
+        srcCol: 0,
+      }]],
       file: "",
     }, "concatenator can output a single source map");
   });

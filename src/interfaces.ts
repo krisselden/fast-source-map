@@ -16,13 +16,7 @@ export interface FullDecodedMapping extends DecodedMapping {
 
 export type LineMappings = Array<DecodedMapping>
 
-export interface LineDescriptor {
-  mappings: LineMappings;
-}
-
-export interface DecodedMappings {
-  lines: Array<LineDescriptor>;
-}
+export type DecodedMappings = Array<LineMappings>
 
 export interface DecodedSourceMap {
   version: string;
