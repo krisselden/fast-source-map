@@ -1,23 +1,23 @@
 import { encodeVLQ } from './vlq';
 
 export default class IntBufferWriter {
-  buf;
-  ptr;
+  public buf: Uint8Array | number[];
+  public ptr: number;
 
-  constructor(buf, ptr) {
+  constructor(buf: Uint8Array | number[], ptr: number) {
     this.buf = buf;
-    this.ptr = ptr|0;
+    this.ptr = ptr | 0;
   }
 
-  write(n) {
+  public write(n) {
     encodeVLQ(this, n);
   }
 
-  separator() {
+  public separator() {
     this.buf[this.ptr++] = 44; /* , */
   }
 
-  newline() {
+  public newline() {
     this.buf[this.ptr++] = 59; /* ; */
   }
 

@@ -1,5 +1,5 @@
-import { decodeVLQ } from './vlq';
 import IntBufferReader from './int-buffer-reader';
+import { decodeVLQ } from './vlq';
 
 export interface Delegate {
   newline(): void;
@@ -10,22 +10,22 @@ export interface Delegate {
 
 export default class MappingsDecoder {
   // absolutes
-  line = 0;
-  column = 0;
-  source = 0;
-  sourceLine = 0;
-  sourceColumn = 0;
-  name = 0;
+  private line = 0;
+  private column = 0;
+  private source = 0;
+  private sourceLine = 0;
+  private sourceColumn = 0;
+  private name = 0;
 
-  fieldCount = 0;
+  private fieldCount = 0;
 
-  delegate: Delegate;
+  private delegate: Delegate;
 
   constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 
-  decode(reader) {
+  public decode(reader: IntBufferReader) {
     while (reader.ptr < reader.limit) {
       switch (reader.buf[reader.ptr]) {
         case 59: // semicolon
@@ -52,11 +52,11 @@ export default class MappingsDecoder {
     }
   }
 
-  emitNewline() {
+  private emitNewline() {
     this.delegate.newline();
   }
 
-  emitMapping() {
+  private emitMapping() {
     switch (this.fieldCount) {
       case 1:
         this.delegate.mapping1(this.column);
@@ -70,8 +70,8 @@ export default class MappingsDecoder {
     }
   }
 
-  decodeField(reader) {
-    var value = decodeVLQ(reader)|0;
+  private decodeField(reader) {
+    const value = decodeVLQ(reader) | 0;
     switch (this.fieldCount) {
       case 0:
         this.column += value;
@@ -95,36 +95,46 @@ export default class MappingsDecoder {
         break;
     }
   }
-};
+}
 
-// ;;
-// C;
-// CEGI,
-// AAAAK;
-let warm = new Uint8Array([
-  59,59,
-  67,59,
-  67,69,71,73,44,
-  65,65,65,65,75,59
-]);
+(() => {
+  // ;;
+  // C;
+  // CEGI,
+  // AAAAK;
+  const warm = new Uint8Array([
+    59, 59,
+    67, 59,
+    67, 69, 71, 73, 44,
+    65, 65, 65, 65, 75, 59,
+  ]);
 
-let lines = 0;
-let decoder = new MappingsDecoder({
-    newline: function () {
+  let lines = 0;
+  const decoder = new MappingsDecoder({
+    newline() {
       lines++;
     },
-    mapping1: function (c) {
-      if (c !== 1) throw new Error("smoke test failed");
+    mapping1(c) {
+      if (c !== 1) {
+        throw new Error('smoke test failed');
+      }
     },
-    mapping4: function (c, s, sl, sc) {
-      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4) throw new Error("smoke test failed");
+    mapping4(c, s, sl, sc) {
+      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4) {
+        throw new Error('smoke test failed');
+      }
     },
-    mapping5: function (c, s, sl, sc, n) {
-      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4 || n !== 5) throw new Error("smoke test failed");
-    }
-});
+    mapping5(c, s, sl, sc, n) {
+      if (c !== 1 || s !== 2 || sl !== 3 || sc !== 4 || n !== 5) {
+        throw new Error('smoke test failed');
+      }
+    },
+  });
 
-let reader = new IntBufferReader(warm, 0, warm.length);
-decoder.decode(reader);
+  const reader = new IntBufferReader(warm, 0, warm.length);
+  decoder.decode(reader);
 
-if (lines !== 4) throw new Error("smoke test failed");
+  if (lines !== 4) {
+    throw new Error('smoke test failed');
+  }
+})();

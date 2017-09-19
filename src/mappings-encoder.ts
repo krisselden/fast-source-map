@@ -1,31 +1,32 @@
 export interface Delegate {
+  length: number;
+
   newline(): void;
   separator(): void;
   write1(column: number): void;
   write4(column: number, source: number, sourceLine: number, sourceColumn: number): void;
   write5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number): void;
-  length: number;
 }
 
 export default class MappingsEncoder {
-  column = 0;
-  source = 0;
-  sourceLine = 0;
-  sourceColumn = 0;
-  name = 0;
+  private column = 0;
+  private source = 0;
+  private sourceLine = 0;
+  private sourceColumn = 0;
+  private name = 0;
 
-  delegate: Delegate;
+  private delegate: Delegate;
 
   constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 
-  encode({ mappings }) {
-    for (let i = 0; i < mappings.lines.length;i++) {
-      let line = mappings.lines[i];
+  public encode({ mappings }) {
+    for (let i = 0; i < mappings.lines.length; i++) {
+      const line = mappings.lines[i];
 
       for (let j = 0; j < line.mappings.length; j++) {
-        let mapping = line.mappings[j];
+        const mapping = line.mappings[j];
 
         switch (mapping.fieldCount) {
           case 1:
@@ -58,15 +59,15 @@ export default class MappingsEncoder {
     return this.delegate.length;
   }
 
-  separator() {
+  private separator() {
     this.delegate.separator();
   }
 
-  newline() {
+  private newline() {
     this.delegate.newline();
   }
 
-  write5(mapping) {
+  private write5(mapping) {
     this.delegate.write5(
       mapping.col     - this.column,
       mapping.src     - this.source,
@@ -81,7 +82,7 @@ export default class MappingsEncoder {
     this.name         = mapping.name;
   }
 
-  write4(mapping) {
+  private write4(mapping) {
     this.delegate.write4(
       mapping.col     - this.column,
       mapping.src     - this.source,
@@ -94,12 +95,12 @@ export default class MappingsEncoder {
     this.sourceColumn = mapping.srcCol;
   }
 
-  write1(mapping) {
+  private write1(mapping) {
     this.delegate.write1(mapping.col - this.column);
 
     this.column = mapping.col;
   }
-};
+}
 
 function missingFieldCount() {
   throw new TypeError('mappings to encode require fieldCount');

@@ -1,15 +1,14 @@
-import IntBufferReader from './int-buffer-reader';
+import fs = require('fs');
 import Decoder from './decoder';
+import IntBufferReader from './int-buffer-reader';
 import MappingsDecoder from './mappings-decoder';
 import toBuffer from './utils/to-buffer';
 
-import fs = require('fs');
-
 export function decode(map) {
-  var buffer = toBuffer(map.mappings);
-  var reader = new IntBufferReader(buffer, 0, buffer.length);
-  var decoder = new Decoder();
-  var mappingsDecoder = new MappingsDecoder(decoder);
+  const buffer = toBuffer(map.mappings);
+  const reader = new IntBufferReader(buffer, 0, buffer.length);
+  const decoder = new Decoder();
+  const mappingsDecoder = new MappingsDecoder(decoder);
 
   mappingsDecoder.decode(reader);
 
@@ -21,4 +20,3 @@ export function decode(map) {
 export function decodeFile(path) {
   return decode(JSON.parse(fs.readFileSync(path, { encoding: 'utf8' })));
 }
-

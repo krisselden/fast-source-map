@@ -1,25 +1,25 @@
 export default class IntBufferReader {
-  buf;
-  ptr;
-  limit;
+  public buf: number[] | Uint8Array;
+  public ptr: number;
+  public limit: number;
 
-  constructor(buf, ptr, len) {
+  constructor(buf: number[] | Uint8Array, ptr: number, len: number) {
     this.buf = buf;
-    this.ptr = ptr|0;
-    this.limit = (ptr + len)|0;
+    this.ptr = ptr | 0;
+    this.limit = (ptr + len) | 0;
   }
 
-  peek() {
-    return this.buf[this.ptr|0]|0;
+  public peek() {
+    return this.buf[this.ptr | 0] | 0;
   }
 
-  read() {
-    var n = this.buf[this.ptr|0]|0;
-    this.ptr = (this.ptr + 1)|0;
+  public read() {
+    const n = this.buf[this.ptr | 0] | 0;
+    this.ptr = (this.ptr + 1) | 0;
     return n;
   }
 
-  next() {
-    this.ptr = (this.ptr + 1)|0;
+  public next() {
+    this.ptr = (this.ptr + 1) | 0;
   }
 }

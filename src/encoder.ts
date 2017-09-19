@@ -1,21 +1,22 @@
+import IntBufferWriter from './int-buffer-writer';
 import { Delegate } from './mappings-encoder';
 
 export default class Encoder implements Delegate {
-  buf;
+  private buf: IntBufferWriter;
 
-  constructor(buf) {
+  constructor(buf: IntBufferWriter) {
     this.buf = buf;
   }
 
-  separator() {
+  public separator() {
     this.buf.separator();
   }
 
-  newline() {
+  public newline() {
     this.buf.newline();
   }
 
-  write5(column, source, sourceLine, sourceColumn, name) {
+  public write5(column, source, sourceLine, sourceColumn, name) {
     this.buf.write(column);
     this.buf.write(source);
     this.buf.write(sourceLine);
@@ -23,18 +24,18 @@ export default class Encoder implements Delegate {
     this.buf.write(name);
   }
 
-  write4(column, source, sourceLine, sourceColumn) {
+  public write4(column, source, sourceLine, sourceColumn) {
     this.buf.write(column);
     this.buf.write(source);
     this.buf.write(sourceLine);
     this.buf.write(sourceColumn);
   }
 
-  write1(column) {
+  public write1(column) {
     this.buf.write(column);
   }
 
   get length() {
     return this.buf.length;
   }
-};
+}
