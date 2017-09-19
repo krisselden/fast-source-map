@@ -1,28 +1,21 @@
 export interface DecodedMapping {
   fieldCount: number;
   col: number;
-  src?: number;
-  srcLine?: number;
-  srcCol?: number;
-  name?: number;
-}
-
-export interface FullDecodedMapping extends DecodedMapping {
   src: number;
   srcLine: number;
   srcCol: number;
   name: number;
 }
 
-export type LineMappings = Array<DecodedMapping>
+export type LineMappings = DecodedMapping[];
 
-export type DecodedMappings = Array<LineMappings>
+export type DecodedMappings = LineMappings[];
 
 export interface DecodedSourceMap {
   version: string;
-  sources: Array<string>;
-  sourcesContent: Array<string>;
-  names: Array<string>;
+  sources: string[];
+  sourcesContent: string[];
+  names: string[];
   mappings: DecodedMappings;
   file: string;
 }

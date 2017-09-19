@@ -1,45 +1,46 @@
-import toBuffer from "../utils/to-buffer";
-import toString from "../utils/to-string";
+import toBuffer from '../utils/to-buffer';
+import toString from '../utils/to-string';
 
 import {
+  Decoder,
+  decodeVLQ,
+  Encoder,
+  encodeVLQ,
   IntBufferReader,
   IntBufferWriter,
-  encodeVLQ,
-  decodeVLQ,
-  Decoder,
   MappingsDecoder,
-  Encoder,
-  MappingsEncoder
-} from "../index";
+  MappingsEncoder,
+} from '../index';
 
-import { expect } from "chai";
+import { expect } from 'chai';
 
-describe("test encode", function() {
-  it("encodeVLQ", function() {
+describe('test encode', () => {
+  it('encodeVLQ', () => {
     let writer = new IntBufferWriter([], 0);
 
-    [ 123, 456, 789, 987, 654, 321 ].forEach(function (n) {
+    [ 123, 456, 789, 987, 654, 321 ].forEach((n) => {
       encodeVLQ(writer, n);
     });
 
-    expect(toString(writer.buf, 0, writer.ptr)).to.equal("2HwcqxB29B8oBiU");
+    expect(toString(writer.buf, 0, writer.ptr)).to.equal('2HwcqxB29B8oBiU');
 
     writer = new IntBufferWriter(new Int32Array(10), 0);
 
-    [ -1, 2, 1, 7, -1, 2, 6, 2 ].forEach(function (n) {
+    [ -1, 2, 1, 7, -1, 2, 6, 2 ].forEach((n) => {
       encodeVLQ(writer, n);
     });
-    expect(toString(writer.buf, 0, writer.ptr)).to.equal("DECODEME");
+    expect(toString(writer.buf, 0, writer.ptr)).to.equal('DECODEME');
   });
 
-  it("decodeVLQ", function() {
-    let output = {
+  it('decodeVLQ', () => {
+    // tslint:disable-next-line:max-line-length
+    const output = {
       buf: new Int32Array(10),
       ptr: 0,
     };
 
-    let buffer = toBuffer("DECODEME");
-    let reader = new IntBufferReader(buffer, 0, buffer.length);
+    const buffer = toBuffer('DECODEME');
+    const reader = new IntBufferReader(buffer, 0, buffer.length);
 
     while (reader.ptr < reader.buf.length) {
       output.buf[output.ptr++] = decodeVLQ(reader);
@@ -49,13 +50,14 @@ describe("test encode", function() {
     expect(output.ptr).to.equal(8);
   });
 
-  it("mappings decoder", function() {
-    let buffer = toBuffer("uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B");
+  it('mappings decoder', () => {
+    // tslint:disable-next-line:max-line-length
+    const buffer = toBuffer('uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
 
-    let reader = new IntBufferReader(buffer, 0, buffer.length);
+    const reader = new IntBufferReader(buffer, 0, buffer.length);
 
-    let decoder = new Decoder();
-    let mappingsDecoder = new MappingsDecoder(decoder);
+    const decoder = new Decoder();
+    const mappingsDecoder = new MappingsDecoder(decoder);
 
     mappingsDecoder.decode(reader);
 
@@ -81,34 +83,35 @@ describe("test encode", function() {
     ]]);
   });
 
-  it("mappings decoder (another)", function() {
-    let buffer = toBuffer(",YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD");
+  it('mappings decoder (another)', () => {
+    // tslint:disable-next-line:max-line-length
+    const buffer = toBuffer(',YAAY;;AAArB,WAAS,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE;AACjD,QAAI,KAAK,GAAG,CAAC,CAAC;AACd,QAAI,GAAG,GAAG,MAAM,CAAC,MAAM,GAAG,CAAC,CAAC;AAC5B,QAAI,MAAM,EAAE,CAAC,CAAC;;AAEd,WAAO,KAAK,GAAG,GAAG,EAAE;;;AAGlB,OAAC,GAAG,CAAC,GAAG,GAAG,KAAK,CAAA,GAAI,CAAC,CAAC;;;;AAItB,YAAM,GAAG,KAAK,GAAG,CAAC,GAAI,CAAC,GAAG,CAAC,AAAC,CAAC;;AAE7B,UAAI,IAAI,IAAI,MAAM,CAAC,MAAM,CAAC,EAAE;AAC1B,aAAK,GAAG,MAAM,GAAG,CAAC,CAAC;OACpB,MAAM;AACL,WAAG,GAAG,MAAM,CAAC;OACd;KACF;;AAED,WAAO,AAAC,IAAI,IAAI,MAAM,CAAC,KAAK,CAAC,GAAI,KAAK,GAAG,CAAC,GAAG,KAAK,CAAC;GACpD');
 
-    let decoder = new Decoder();
-    let reader = new IntBufferReader(buffer, 0, buffer.length);
+    const decoder = new Decoder();
+    const reader = new IntBufferReader(buffer, 0, buffer.length);
 
     new MappingsDecoder(decoder).decode(reader);
 
-    let mappings = decoder.mappings;
+    const mappings = decoder.mappings;
 
-    expect(mappings.length, "mappings.length").to.equal(25);
+    expect(mappings.length, 'mappings.length').to.equal(25);
     expect(mappings[0].length).to.equal(1);
-    expect(mappings[0][0], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 12, name: 0 });
+    expect(mappings[0][0], 'YAAY').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 12, name: 0 });
 
     expect(mappings[1].length).to.equal(0);
     expect(mappings[2].length).to.equal(8);
 
-    expect(mappings[2][0], "AAArB").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: -9, src: 0, col:  0, name: 0 });
-    expect(mappings[2][1], "WAAS").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol:  0, src: 0, col: 11, name: 0 });
-    expect(mappings[2][2], "YAAY").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 23, name: 0 });
-    expect(mappings[2][3], "CAAC").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 13, src: 0, col: 24, name: 0 });
-    expect(mappings[2][4], "IAAI").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 17, src: 0, col: 28, name: 0 });
-    expect(mappings[2][5], "EAAE").to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 19, src: 0, col: 30, name: 0 });
+    expect(mappings[2][0], 'AAArB').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: -9, src: 0, col:  0, name: 0 });
+    expect(mappings[2][1], 'WAAS').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol:  0, src: 0, col: 11, name: 0 });
+    expect(mappings[2][2], 'YAAY').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 12, src: 0, col: 23, name: 0 });
+    expect(mappings[2][3], 'CAAC').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 13, src: 0, col: 24, name: 0 });
+    expect(mappings[2][4], 'IAAI').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 17, src: 0, col: 28, name: 0 });
+    expect(mappings[2][5], 'EAAE').to.deep.equal({ fieldCount: 4, srcLine: 0, srcCol: 19, src: 0, col: 30, name: 0 });
   });
 
-  it("encoder", function() {
+  it('encoder', () => {
     // (lines + segemnts * 6) = byte_count
-    let decoded = [[
+    const decoded = [[
       { fieldCount: 4, col: 183, src: 0, srcLine: 7,  srcCol: 0,  name: 0 },
       { fieldCount: 5, col: 192, src: 0, srcLine: 7,  srcCol: 9,  name: 0 },
       { fieldCount: 5, col: 195, src: 0, srcLine: 7,  srcCol: 23, name: 1 },
@@ -131,15 +134,15 @@ describe("test encode", function() {
 
     // TODO: pretty sure we can do a Uint8Array here
     // let buffer = new Uint32Array(estimatedSize);
-    let buffer = [];
-    let writer = new IntBufferWriter(buffer, 0);
-    let encoder = new Encoder(writer);
-    let mappingsEncoder = new MappingsEncoder(encoder);
+    const buffer: number[] = [];
+    const writer = new IntBufferWriter(buffer, 0);
+    const encoder = new Encoder(writer);
+    const mappingsEncoder = new MappingsEncoder(encoder);
 
     mappingsEncoder.encode(decoded);
 
-    expect(buffer.length, "mapper.encode(decoded)").to.deep.equal(102); // TODO: this number is likely not right...
-    expect(toString(buffer, 0, buffer.length))
-      .to.deep.equal("uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B");
+    expect(buffer.length, 'mapper.encode(decoded)').to.deep.equal(102); // TODO: this number is likely not right...
+    expect(toString(buffer, 0, buffer.length)).to.deep.equal(
+      'uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF,GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B');
   });
 });

@@ -1,26 +1,26 @@
-import { Delegate } from "./mappings-decoder";
-import { FullDecodedMapping, DecodedMappings } from "./interfaces";
-import { createMapping1, createMapping4, createMapping5 } from "./mapping-factories";
+import { DecodedMappings, LineMappings } from './interfaces';
+import { createMapping1, createMapping4, createMapping5 } from './mapping-factories';
+import { Delegate } from './mappings-decoder';
 
 export default class Decoder implements Delegate {
-  currentLine: Array<FullDecodedMapping> = [];
+  public currentLine: LineMappings = [];
 
-  mappings: DecodedMappings = [this.currentLine];
+  public mappings: DecodedMappings = [this.currentLine];
 
-  newline() {
+  public newline() {
     this.currentLine = [];
     this.mappings.push(this.currentLine);
   }
 
-  mapping1(col) {
+  public mapping1(col: number) {
     this.currentLine.push(createMapping1(col));
   }
 
-  mapping4(col, src, srcLine, srcCol) {
+  public mapping4(col: number, src: number, srcLine: number, srcCol: number) {
     this.currentLine.push(createMapping4(col, src, srcLine, srcCol));
   }
 
-  mapping5(col, src, srcLine, srcCol, name) {
+  public mapping5(col: number, src: number, srcLine: number, srcCol: number, name: number) {
     this.currentLine.push(createMapping5(col, src, srcLine, srcCol, name));
   }
-};
+}

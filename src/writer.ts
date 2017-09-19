@@ -1,6 +1,6 @@
 interface Writer {
-  write(n: number): void;
   length: number;
+  write(n: number): void;
 }
 
 export default Writer;

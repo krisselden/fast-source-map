@@ -1,62 +1,62 @@
-import { concat } from "../index";
+import { concat } from '../index';
 
-import map1 from "./fixtures/map1";
-import map2 from "./fixtures/map2";
-import map1_2 from "./fixtures/map1-2";
-import map3_4 from "./fixtures/map3-4";
-import map3_4_1 from "./fixtures/map3-4-1";
-import { expect } from "chai";
+import { expect } from 'chai';
+import map1 from './fixtures/map1';
+import map1_2 from './fixtures/map1-2';
+import map2 from './fixtures/map2';
+import map3_4 from './fixtures/map3-4';
+import map3_4_1 from './fixtures/map3-4-1';
 
-describe("concat()", function() {
-  it("can output an empty source map", function() {
+describe('concat()', () => {
+  it('can output an empty source map', () => {
     expect(concat([])).to.deep.equal({
-      version: "3",
+      file: '',
+      mappings: [],
+      names: [],
       sources: [],
       sourcesContent: [],
-      names: [],
-      mappings: [],
-      file: "",
-    }, "concatenator can output the empty case");
+      version: '3',
+    }, 'concatenator can output the empty case');
   });
 
-  it("can output a single source map", function() {
-    let map1 = {
-      version: "3",
-      sources: [ "file1.js" ],
-      sourcesContent: [],
-      names: [],
+  it('can output a single source map', () => {
+    const map = {
+      file: 'map1.js',
       mappings: [[{
-        fieldCount: 4,
         col: 0,
+        fieldCount: 4,
+        name: 0,
         src: 0,
-        srcLine: 1,
         srcCol: 0,
+        srcLine: 1,
       }]],
-      file: "map1.js",
+      names: [] as string[],
+      sources: [ 'file1.js' ],
+      sourcesContent: [] as string[],
+      version: '3',
     };
 
-    expect(concat([map1])).to.deep.equal({
-      version: "3",
-      sources: [ "file1.js" ],
-      sourcesContent: [],
-      names: [],
+    expect(concat([map])).to.deep.equal({
+      file: '',
       mappings: [[{
-        fieldCount: 4,
         col: 0,
+        fieldCount: 4,
         src: 0,
-        srcLine: 1,
         srcCol: 0,
+        srcLine: 1,
       }]],
-      file: "",
-    }, "concatenator can output a single source map");
+      names: [],
+      sources: [ 'file1.js' ],
+      sourcesContent: [],
+      version: '3',
+    }, 'concatenator can output a single source map');
   });
 
-  it("can produce simple merged source maps", function() {
+  it('can produce simple merged source maps', () => {
     expect(concat([map1, map2])).to.deep.equal(map1_2);
   });
 
-  it("can merge source maps with multiple sources", function() {
+  it('can merge source maps with multiple sources', () => {
     expect(concat([map3_4, map1])).to.deep.equal(map3_4_1);
   });
 });
-

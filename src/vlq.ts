@@ -1,12 +1,12 @@
-import { uint6ToASCII, asciiToUint6 } from "./base64";
-import Writer from "./writer";
-import Reader from "./reader";
+import { asciiToUint6, uint6ToASCII } from './base64';
+import Reader from './reader';
+import Writer from './writer';
 
 // 0 - 63 (6-bit 0 - 111111)
 // 32 100000 continuation bit
 // 31 011111 mask 5 bits
 // 1 is the sign bit
-export function encodeVLQ(writer: Writer, v) {
+export function encodeVLQ(writer: Writer, v: number) {
   let num = v < 0 ? (-v << 1) | 1 : v << 1;
   let cont = false;
   do {

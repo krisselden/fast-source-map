@@ -6,12 +6,9 @@
     "outDir": "lib",
     "rootDir": "src",
     "declaration": true,
-    "strictNullChecks": true
+    "strict": true
   },
-  "exclude": [
-    "node_modules/**"
-  ],
-  "filesGlob": [
-    "src/**.ts"
+  "include": [
+    "src/**/*.ts"
   ]
 }

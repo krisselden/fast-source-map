@@ -1,5 +1,5 @@
-import { decodeVLQ } from "./vlq";
-import Reader from "./reader";
+import Reader from './reader';
+import { decodeVLQ } from './vlq';
 
 export interface Delegate {
   newline(): void;
@@ -10,22 +10,22 @@ export interface Delegate {
 
 export default class MappingsDecoder {
   // absolutes
-  line = 0;
-  column = 0;
-  source = 0;
-  sourceLine = 0;
-  sourceColumn = 0;
-  name = 0;
+  public line = 0;
+  public column = 0;
+  public source = 0;
+  public sourceLine = 0;
+  public sourceColumn = 0;
+  public name = 0;
 
-  fieldCount = 0;
+  public fieldCount = 0;
 
-  delegate: Delegate;
+  public delegate: Delegate;
 
   constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 
-  decode(reader: Reader) {
+  public decode(reader: Reader) {
     while (reader.hasNext()) {
       switch (reader.peek()) {
         case 59: // semicolon
@@ -52,11 +52,11 @@ export default class MappingsDecoder {
     }
   }
 
-  emitNewline() {
+  public emitNewline() {
     this.delegate.newline();
   }
 
-  emitMapping() {
+  public emitMapping() {
     switch (this.fieldCount) {
       case 1:
         this.delegate.mapping1(this.column);
@@ -70,8 +70,8 @@ export default class MappingsDecoder {
     }
   }
 
-  decodeField(reader) {
-    let value = decodeVLQ(reader) | 0;
+  public decodeField(reader: Reader) {
+    const value = decodeVLQ(reader) | 0;
     switch (this.fieldCount) {
       case 0:
         this.column += value;
@@ -95,4 +95,4 @@ export default class MappingsDecoder {
         break;
     }
   }
-};
+}

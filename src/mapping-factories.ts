@@ -1,34 +1,38 @@
-import { FullDecodedMapping } from "./interfaces";
+import { DecodedMapping } from './interfaces';
 
-export function createMapping1(col): FullDecodedMapping {
+export function createMapping1(col: number): DecodedMapping {
   return {
+    col,
     fieldCount: 1,
-    col,
+    name: 0,
     src: 0,
-    srcLine: 0,
     srcCol: 0,
-    name: 0,
+    srcLine: 0,
   };
 }
 
-export function createMapping4(col, src, srcLine, srcCol): FullDecodedMapping {
+export function createMapping4(col: number, src: number, srcLine: number, srcCol: number): DecodedMapping {
   return {
+    col,
     fieldCount: 4,
-    col,
-    src,
-    srcLine,
-    srcCol,
     name: 0,
+    src,
+    srcCol,
+    srcLine,
   };
 }
 
-export function createMapping5(col, src, srcLine, srcCol, name): FullDecodedMapping {
+export function createMapping5(col: number,
+                               src: number,
+                               srcLine: number,
+                               srcCol: number,
+                               name: number): DecodedMapping {
   return {
-    fieldCount: 5,
     col,
-    src,
-    srcLine,
-    srcCol,
+    fieldCount: 5,
     name,
+    src,
+    srcCol,
+    srcLine,
   };
 }

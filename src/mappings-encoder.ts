@@ -1,33 +1,33 @@
-import { DecodedMappings } from "./interfaces";
+import { DecodedMappings } from './interfaces';
 
 export interface Delegate {
+  length: number;
   newline(): void;
   separator(): void;
   write1(column: number): void;
   write4(column: number, source: number, sourceLine: number, sourceColumn: number): void;
   write5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number): void;
-  length: number;
 }
 
 export default class MappingsEncoder {
-  column = 0;
-  source = 0;
-  sourceLine = 0;
-  sourceColumn = 0;
-  name = 0;
+  public column = 0;
+  public source = 0;
+  public sourceLine = 0;
+  public sourceColumn = 0;
+  public name = 0;
 
-  delegate: Delegate;
+  public delegate: Delegate;
 
   constructor(delegate: Delegate) {
     this.delegate = delegate;
   }
 
-  encode(mappings: DecodedMappings) {
+  public encode(mappings: DecodedMappings) {
     for (let i = 0; i < mappings.length; i++) {
-      let line = mappings[i];
+      const line = mappings[i];
 
       for (let j = 0; j < line.length; j++) {
-        let mapping = line[j];
+        const mapping = line[j];
 
         switch (mapping.fieldCount) {
           case 1:
@@ -60,15 +60,21 @@ export default class MappingsEncoder {
     return this.delegate.length;
   }
 
-  separator() {
+  public separator() {
     this.delegate.separator();
   }
 
-  newline() {
+  public newline() {
     this.delegate.newline();
   }
 
-  write5(mapping) {
+  public write5(mapping: {
+    col: number;
+    src: number;
+    srcLine: number;
+    srcCol: number;
+    name: number;
+  }) {
     this.delegate.write5(
       mapping.col     - this.column,
       mapping.src     - this.source,
@@ -83,7 +89,12 @@ export default class MappingsEncoder {
     this.name         = mapping.name;
   }
 
-  write4(mapping) {
+  public write4(mapping: {
+    col: number;
+    src: number;
+    srcLine: number;
+    srcCol: number;
+  }) {
     this.delegate.write4(
       mapping.col     - this.column,
       mapping.src     - this.source,
@@ -96,13 +107,15 @@ export default class MappingsEncoder {
     this.sourceColumn = mapping.srcCol;
   }
 
-  write1(mapping) {
+  public write1(mapping: {
+    col: number;
+  }) {
     this.delegate.write1(mapping.col - this.column);
 
     this.column = mapping.col;
   }
-};
+}
 
 function missingFieldCount() {
-  throw new TypeError("mappings to encode require fieldCount");
+  throw new TypeError('mappings to encode require fieldCount');
 }

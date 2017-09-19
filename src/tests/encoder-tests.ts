@@ -1,27 +1,27 @@
-import { MappingsEncoder, MappingsEncoderDelegate } from "../index";
-import { expect } from "chai";
+import { expect } from 'chai';
+import { MappingsEncoder, MappingsEncoderDelegate } from '../index';
 
 class Encoder implements MappingsEncoderDelegate {
-  writes: string[] = [];
+  public writes: Array<string | number> = [];
 
-  write1(n): void {
+  public write1(n: number): void {
     this.writes.push(n);
   }
 
-  write4(a, b, c, d): void {
+  public write4(a: number, b: number, c: number, d: number): void {
     this.writes.push(a, b, c, d);
   }
 
-  write5(a, b, c, d, e): void {
+  public write5(a: number, b: number, c: number, d: number, e: number): void {
     this.writes.push(a, b, c, d, e);
   }
 
-  separator(): void {
-    this.writes.push(",");
+  public separator(): void {
+    this.writes.push(',');
   }
 
-  newline(): void {
-    this.writes.push(";");
+  public newline(): void {
+    this.writes.push(';');
   }
 
   get length(): number {
@@ -29,26 +29,26 @@ class Encoder implements MappingsEncoderDelegate {
   }
 }
 
-describe("Encoder", function() {
+describe('Encoder', () => {
   let encoder: Encoder;
   let mapper: MappingsEncoder;
-  let mapping;
+  let mapping: { col: number, src: number, srcLine: number, srcCol: number, name: number };
 
-  beforeEach( function() {
+  beforeEach( () => {
     encoder = new Encoder();
     mapper = new MappingsEncoder(encoder);
 
     mapping = {
       col: 197,
-      src: 0,
-      srcLine: 7,
-      srcCol: 29,
       name: 2,
+      src: 0,
+      srcCol: 29,
+      srcLine: 7,
     };
   });
 
-  describe("write1", function() {
-    it("writes the `col` field", function() {
+  describe('write1', () => {
+    it('writes the `col` field', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write1(mapping);
@@ -57,8 +57,8 @@ describe("Encoder", function() {
     });
   });
 
-  describe("write4", function() {
-    it("writes the col, src, srcLine and srcCol fields in order", function() {
+  describe('write4', () => {
+    it('writes the col, src, srcLine and srcCol fields in order', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write4(mapping);
@@ -67,8 +67,8 @@ describe("Encoder", function() {
     });
   });
 
-  describe("write5", function() {
-    it("writes the col, src, srcLine, srcCol and name fields in order", function() {
+  describe('write5', () => {
+    it('writes the col, src, srcLine, srcCol and name fields in order', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.write5(mapping);
@@ -77,154 +77,156 @@ describe("Encoder", function() {
     });
   });
 
-  describe("encode", function() {
-    it("encodes sequences of the same field length", function() {
+  describe('encode', () => {
+    it('encodes sequences of the same field length', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode([[{
-        fieldCount: 1,
         col: 105,
-        src: 0,
-        srcLine: 0,
-        srcCol: 0,
-        name: 0
-      }, {
         fieldCount: 1,
+        name: 0,
+        src: 0,
+        srcCol: 0,
+        srcLine: 0,
+      }, {
         col: 200,
-        src: 0,
-        srcLine: 0,
-        srcCol: 0,
-        name: 0
-      }, {
         fieldCount: 1,
-        col: 300,
+        name: 0,
         src: 0,
-        srcLine: 0,
         srcCol: 0,
-        name: 0
+        srcLine: 0,
+      }, {
+        col: 300,
+        fieldCount: 1,
+        name: 0,
+        src: 0,
+        srcCol: 0,
+        srcLine: 0,
       }]]);
 
-      expect(encoder.writes).to.deep.equal([ 105, ",", 95, ",", 100 ]);
+      expect(encoder.writes).to.deep.equal([ 105, ',', 95, ',', 100 ]);
     });
 
-    it("encodes sequences of mixed field lengths", function() {
+    it('encodes sequences of mixed field lengths', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode([[{
-        fieldCount: 5,
         col: 10,
-        src: 11,
-        srcLine: 12,
-        srcCol: 13,
+        fieldCount: 5,
         name: 14,
+        src: 11,
+        srcCol: 13,
+        srcLine: 12,
       }, {
-        fieldCount: 1,
         col: 20,
+        fieldCount: 1,
+        name: 0,
         src: 0,
-        srcLine: 0,
         srcCol: 0,
-        name: 0
+        srcLine: 0,
       }, {
-        fieldCount: 4,
         col: 30,
+        fieldCount: 4,
+        name: 0,
         src: 31,
-        srcLine: 32,
         srcCol: 33,
-        name: 0
+        srcLine: 32,
       }]]);
 
       expect(encoder.writes).to.deep.equal([
-        10, 11, 12, 13, 14, ",",
-        10, ",",
+        10, 11, 12, 13, 14, ',',
+        10, ',',
         10, 20, 20, 20,
       ]);
     });
 
-    it("encodes multiple lines with single segments", function() {
+    it('encodes multiple lines with single segments', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode([[
         {
-          fieldCount: 1,
           col: 10,
-          src: 0,
-          srcLine: 0,
-          srcCol: 0,
-          name: 0
-        }, {
           fieldCount: 1,
+          name: 0,
+          src: 0,
+          srcCol: 0,
+          srcLine: 0,
+        }, {
           col: 20,
-        }
+          fieldCount: 1,
+          name: 0,
+          src: 0,
+          srcCol: 0,
+          srcLine: 0,
+        },
       ], [
         {
-          fieldCount: 1,
           col: 100,
+          fieldCount: 1,
+          name: 0,
           src: 0,
-          srcLine: 0,
           srcCol: 0,
-          name: 0
-        }
+          srcLine: 0,
+        },
       ]]);
 
       expect(encoder.writes).to.deep.equal([
-        10, ",", 10, ";",
+        10, ',', 10, ';',
         100,
       ]);
     });
 
-    it("encodes multiple lines with multiple mixed segments", function() {
+    it('encodes multiple lines with multiple mixed segments', () => {
       expect(encoder.writes).to.deep.equal([]);
 
       mapper.encode([[
         {
-          fieldCount: 1,
           col: 10,
-          src: 0,
-          srcLine: 0,
-          srcCol: 0,
-          name: 0
-        }, {
           fieldCount: 1,
-          col: 20,
+          name: 0,
           src: 0,
-          srcLine: 0,
           srcCol: 0,
-          name: 0
-        }
-      ], [
-        {
-          fieldCount: 5,
-          col: 100,
-          src: 101,
-          srcLine: 102,
-          srcCol: 103,
-          name: 104,
-        }
-      ], [
-        {
-          fieldCount: 4,
-          col: 200,
-          src: 201,
-          srcLine: 202,
-          srcCol: 203,
-          name: 0
+          srcLine: 0,
         }, {
+          col: 20,
+          fieldCount: 1,
+          name: 0,
+          src: 0,
+          srcCol: 0,
+          srcLine: 0,
+        },
+      ], [
+        {
+          col: 100,
+          fieldCount: 5,
+          name: 104,
+          src: 101,
+          srcCol: 103,
+          srcLine: 102,
+        },
+      ], [
+        {
+          col: 200,
           fieldCount: 4,
+          name: 0,
+          src: 201,
+          srcCol: 203,
+          srcLine: 202,
+        }, {
           col: 300,
+          fieldCount: 4,
+          name: 0,
           src: 301,
-          srcLine: 302,
           srcCol: 303,
-          name: 0
-        }
+          srcLine: 302,
+        },
       ]]);
 
       expect(encoder.writes).to.deep.equal([
-        10, ",", 10, ";",
-        100, 101, 102, 103, 104, ";",
-        200, 100, 100, 100, ",", 100, 100, 100, 100,
+        10, ',', 10, ';',
+        100, 101, 102, 103, 104, ';',
+        200, 100, 100, 100, ',', 100, 100, 100, 100,
       ]);
     });
   });
 });
-
-

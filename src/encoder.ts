@@ -1,23 +1,23 @@
-import { Delegate } from "./mappings-encoder";
-import { encodeVLQ } from "./vlq";
-import Writer from "./writer";
+import { Delegate } from './mappings-encoder';
+import { encodeVLQ } from './vlq';
+import Writer from './writer';
 
 export default class Encoder implements Delegate {
-  writer: Writer;
+  public writer: Writer;
 
   constructor(writer: Writer) {
     this.writer = writer;
   }
 
-  separator() {
+  public separator() {
     this.writer.write(44); /* , */
   }
 
-  newline() {
+  public newline() {
     this.writer.write(59); /* ; */
   }
 
-  write5(column, source, sourceLine, sourceColumn, name) {
+  public write5(column: number, source: number, sourceLine: number, sourceColumn: number, name: number) {
     encodeVLQ(this.writer, column);
     encodeVLQ(this.writer, source);
     encodeVLQ(this.writer, sourceLine);
@@ -25,18 +25,18 @@ export default class Encoder implements Delegate {
     encodeVLQ(this.writer, name);
   }
 
-  write4(column, source, sourceLine, sourceColumn) {
+  public write4(column: number, source: number, sourceLine: number, sourceColumn: number) {
     encodeVLQ(this.writer, column);
     encodeVLQ(this.writer, source);
     encodeVLQ(this.writer, sourceLine);
     encodeVLQ(this.writer, sourceColumn);
   }
 
-  write1(column) {
+  public write1(column: number) {
     encodeVLQ(this.writer, column);
   }
 
   get length() {
     return this.writer.length;
   }
-};
+}

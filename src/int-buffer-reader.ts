@@ -1,31 +1,31 @@
-import Reader from "./reader";
+import Reader from './reader';
 
 export default class IntBufferReader implements Reader {
-  buf: number[];
-  ptr: number;
-  limit: number;
+  public buf: number[] | Uint8Array;
+  public ptr: number;
+  public limit: number;
 
-  constructor(buf, ptr, len) {
+  constructor(buf: number[] | Uint8Array, ptr: number, len: number) {
     this.buf = buf;
     this.ptr = ptr | 0;
     this.limit = (ptr + len) | 0;
   }
 
-  peek() {
+  public peek() {
     return this.buf[this.ptr | 0] | 0;
   }
 
-  read() {
-    let n = this.buf[this.ptr | 0] | 0;
+  public read() {
+    const n = this.buf[this.ptr | 0] | 0;
     this.ptr = (this.ptr + 1) | 0;
     return n;
   }
 
-  next() {
+  public next() {
     this.ptr = (this.ptr + 1) | 0;
   }
 
-  hasNext(): boolean {
+  public hasNext(): boolean {
     return this.ptr < this.limit;
   }
 }
