@@ -22,14 +22,11 @@ setTimeout(function() {
   console.log('second run:', result.duration + 'ms'); // actual run
 
   // make sure the output appears reasonable
-  assert(decoded.mappings.lines.length === 379201, 'correct number of mappings')
-  assert.deepEqual(decoded.mappings.lines[0], {
-    mappings: [
+  assert(decoded.mappings.length === 379201, 'correct number of mappings')
+  assert.deepEqual(decoded.mappings[0],
+    [
       { fieldCount: 4, col: 0, src: 0, srcLine: 0, srcCol: 0, name: 0 },
     ],
-  });
-
-  assert.deepEqual(decoded.mappings.lines[379200], {
-    mappings: [ ]
-  });
+  );
+  assert.deepEqual(decoded.mappings[379200], []);
 }, 100);
