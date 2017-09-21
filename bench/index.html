@@ -5,7 +5,7 @@
     "use strict";
     function decode(sourceMap) {
       performance.mark("startDecode");
-      let decoded = FSM.decode(JSON.parse(sourceMap));
+      let decoded = SM.decode(JSON.parse(sourceMap));
       performance.mark("endDecode");
       return decoded;
     }
