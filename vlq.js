@@ -1,28 +1,28 @@
 const fs = require('fs');
+const path = require('path');
 
-WebAssembly.compile(fs.readFileSync('vlq.wasm')).then(mod => {
-  return WebAssembly.instantiate(mod, {
-    env: {
-      emitNewline() {
-        console.log('emitNewline');
-      },
-      emitMapping1(col) {
-        console.log('emitMapping1', col);
-      },
-      emitMapping4(col, src, srcLine, srcCol) {
-        console.log('emitMapping4', col, src, srcLine, srcCol);
-      },
-      emitMapping5(col, src, srcLine, srcCol, name) {
-        console.log('emitMapping5', col, src, srcLine, srcCol, name);
-      },
-    }
-  });
-}).then(instance => new Decoder(instance)).then((decoder) => {
-  console.log('decodeVLQ', decoder.decodeVLQ('m766qH'));
-  console.log('decodeVLQ', decoder.decodeVLQ('lth4ypC'));
-  console.log('test decode mappings');
-  decoder.decode("uLAOA,SAASA,GAAcC,EAAMC,EAAIC,GACjC,OAAUF;;GACV,IAAS,SAAT,MAA0B,IAAIG,GAAOF,EAAIC,EAAzC,KACS,cAAT,MAA+B");
-});
+module.exports.createDecoder = function createDecoder(delegate) {
+  return WebAssembly.compile(fs.readFileSync(path.join(__dirname, 'vlq.wasm')))
+    .then((mod) => {
+      return WebAssembly.instantiate(mod, {
+        env: {
+          emitNewline() {
+            delegate.emitNewline();
+          },
+          emitMapping1(col) {
+            delegate.emitMapping1(col);
+          },
+          emitMapping4(col, src, srcLine, srcCol) {
+            delegate.emitMapping4(col, src, srcLine, srcCol);
+          },
+          emitMapping5(col, src, srcLine, srcCol, name) {
+            delegate.emitMapping4(col, src, srcLine, srcCol, name);
+          },
+        }
+      });
+    })
+    .then((instance) => new Decoder(instance));
+}
 
 class Decoder {
   constructor(mod) {
@@ -31,21 +31,28 @@ class Decoder {
       decode,
       memory,
     } = mod.exports;
-    this.mod = mod;
-    this.bytes  = new Uint8Array(memory.buffer);
-    this.heap32 = new Int32Array(memory.buffer);
+    this._mod = mod;
+    this._memory = memory;
     this._decode = decode;
     this._decodeVLQ = decodeVLQ;
   }
 
   decode(str) {
-    this.writeReader(512, str);
+    this._writeReader(512, str);
     this._decode(512);
   }
 
   decodeVLQ(str) {
-    this.writeReader(512, str);
+    this._writeReader(512, str);
     return this._decodeVLQ(512);
+  }
+
+  _ensureMem(str) {
+    const needed = str.length - this._memory.buffer.byteLength + 1024;
+    if (needed > 0) {
+      const pages = Math.ceil(needed / 65536);
+      this._memory.grow(pages);
+    }
   }
 
   /**
@@ -53,13 +60,15 @@ class Decoder {
    * @param {number} ptr
    * @param {string} str
    */
-  writeReader(ptr, str) {
+  _writeReader(ptr, str) {
+    this._ensureMem(str);
+
     const stringPtr = ptr + 16;
-    const heap32 = this.heap32;
+    const heap32 = new Int32Array(this._memory.buffer);
     heap32[(ptr >> 2)] = 0;
     heap32[(ptr >> 2) + 1] = stringPtr;
     heap32[(ptr >> 2) + 2] = str.length;
-    this.writeString(stringPtr, str);
+    this._writeString(stringPtr, str);
   }
 
   /**
@@ -68,8 +77,8 @@ class Decoder {
    * @param {number} ptr
    * @param {string} str
    */
-  writeString(ptr, str) {
-    let bytes = this.bytes;
+  _writeString(ptr, str) {
+    const bytes = new Uint8Array(this._memory.buffer);
     for (let i = 0; i < str.length; i++) {
       bytes[ptr + i] = str.charCodeAt(i);
     }
