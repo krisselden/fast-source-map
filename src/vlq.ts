@@ -25,12 +25,19 @@ export function decodeVLQ(reader: Reader) {
   let shift = 0;
   let digit = 0;
   let cont = 0;
+  let negate = 0;
   do {
-    digit = asciiToUint6[reader.read()];
+    digit = asciiToUint6[reader.read() & 0x7F];
     cont  = digit & 32;
     digit = digit & 31;
-    num   = num + (digit << shift);
-    shift += 5;
-  } while (cont > 0);
-  return num & 1 ? -(num >> 1) : (num >> 1);
+    if (shift === 0) {
+      negate = digit & 1;
+      num |= digit >> 1;
+      shift = 4;
+    } else {
+      num |= digit << shift;
+      shift += 5;
+    }
+  } while (cont > 0 && shift < 30);
+  return negate === 1 ? -num : num;
 }
