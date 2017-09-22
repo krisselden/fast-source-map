@@ -1,3 +1,4 @@
+"use strict";
 const createDecoder = require('../vlq').createDecoder;
 const assert = require('assert');
 const fs = require('fs');
@@ -53,35 +54,37 @@ class Delegate {
 
   emitMapping4(col, src, srcLine, srcCol) {
     this.currentLine.push({
-      col: col,
+      col,
       fieldCount: 4,
       name: 0,
-      src: src,
-      srcCol: srcCol,
-      srcLine: srcLine,
+      src,
+      srcCol,
+      srcLine,
     });
   }
 
   emitMapping5(col, src, srcLine, srcCol, name) {
     this.currentLine.push({
-      col: col,
+      col,
       fieldCount: 5,
-      name: name,
-      src: src,
-      srcCol: srcCol,
-      srcLine: srcLine,
+      name,
+      src,
+      srcCol,
+      srcLine,
     });
   }
 }
 
 const noop = !!process.env.NOOP
 const delegate = noop ? new CountDelegate() : new Delegate();
+const sourceMap = fs.readFileSync('bench/scala.js.map', 'utf8');
 
 createDecoder(delegate).then(decoder => {
   function test() {
     delegate.reset();
 
-    const parsed = JSON.parse(fs.readFileSync('bench/scala.js.map', 'utf8'));
+    const parsed = JSON.parse(sourceMap);
+
     const start = Date.now();
 
     decoder.decode(parsed.mappings);
@@ -107,25 +110,31 @@ createDecoder(delegate).then(decoder => {
     assert.deepEqual(delegate.mappings[379200], []);
   }
 
-  function doTest(i) {
-    return () => delay(500).then(() => {
-      console.log(`run ${i}: ${test().duration}ms`);
+  function doTest(chain, i) {
+    return chain.then(() => delay(10)).then(runGC).then(() => delay(500)).then(() => {
+      console.log(`run ${i}`);
+      const result = test();
+      console.log(`${result.duration}ms`);
     });
   }
 
   let chain = Promise.resolve();
   for (let i = 0; i < 20; i++) {
-    chain.then(doTest(i + 1))
+    chain = doTest(chain, i + 1);
   }
   return chain;
 });
 
-function delay(ms) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      delegate.reset();
-      if (typeof gc === 'function') gc(true);
-      setTimeout(resolve, ms);
-    }, 10);
-  });
+function runGC() {
+  if (typeof gc === 'function') {
+    // console.log('full gc...');
+    gc(true);
+    // console.log('done');
+  }
 }
+
+function delay(ms) {
+  // console.log(`delay ${ms}`);
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+

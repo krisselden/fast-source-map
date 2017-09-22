@@ -1,3 +1,4 @@
+'use strict';
 const fs = require('fs');
 const path = require('path');
 
@@ -6,18 +7,10 @@ module.exports.createDecoder = function createDecoder(delegate) {
     .then((mod) => {
       return WebAssembly.instantiate(mod, {
         env: {
-          emitNewline() {
-            delegate.emitNewline();
-          },
-          emitMapping1(col) {
-            delegate.emitMapping1(col);
-          },
-          emitMapping4(col, src, srcLine, srcCol) {
-            delegate.emitMapping4(col, src, srcLine, srcCol);
-          },
-          emitMapping5(col, src, srcLine, srcCol, name) {
-            delegate.emitMapping4(col, src, srcLine, srcCol, name);
-          },
+          emitNewline: delegate.emitNewline.bind(delegate),
+          emitMapping1: delegate.emitMapping1.bind(delegate),
+          emitMapping4: delegate.emitMapping4.bind(delegate),
+          emitMapping5: delegate.emitMapping5.bind(delegate),
         }
       });
     })

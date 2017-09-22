@@ -1,3 +1,4 @@
+'use strict';
 const createDecoder = require('./vlq').createDecoder;
 
 createDecoder({
