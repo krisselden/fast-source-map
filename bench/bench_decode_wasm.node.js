@@ -123,6 +123,8 @@ createDecoder(delegate).then(decoder => {
     chain = doTest(chain, i + 1);
   }
   return chain;
+}).catch(e => {
+  console.error(e);
 });
 
 function runGC() {
@@ -132,6 +134,11 @@ function runGC() {
     // console.log('done');
   }
 }
+
+// work around an issue in which the WebAssembly promise is broken
+// Node will exit before the promsise is fulfilled
+// in vee-eight-lkgr
+delay(100).then(() => {});
 
 function delay(ms) {
   // console.log(`delay ${ms}`);
